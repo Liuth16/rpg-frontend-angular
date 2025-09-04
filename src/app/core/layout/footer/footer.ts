@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-footer',
-  imports: [],
+  imports: [ToolbarModule],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
 })
-export class Footer {}
+export class Footer {
+  currentYear = new Date().getFullYear();
+}

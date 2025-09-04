@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, computed } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
@@ -11,17 +11,15 @@ import { Router } from '@angular/router';
   styleUrl: './header.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Header implements OnInit {
+export class Header {
   constructor(private router: Router) {}
 
   // In a real app, this would come from an authentication service.
   isLoggedIn = signal(true);
 
-  items: MenuItem[] | undefined;
-
-  ngOnInit() {
+  items = computed<MenuItem[]>(() => {
     if (this.isLoggedIn()) {
-      this.items = [
+      return [
         {
           label: 'Home',
           routerLink: '/',
@@ -44,7 +42,7 @@ export class Header implements OnInit {
         },
       ];
     } else {
-      this.items = [
+      return [
         {
           label: 'Home',
           routerLink: '/',
@@ -59,8 +57,7 @@ export class Header implements OnInit {
         },
       ];
     }
-  }
-
+  });
   logout(): void {
     this.isLoggedIn.set(false);
   }
