@@ -8,20 +8,11 @@
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "npm install -g @angular/cli",
 
-  "mounts": [
-    "source=${env:SSH_AUTH_SOCK},target=/ssh-agent,type=bind",
-    "source=${env:HOME}${env:USERPROFILE}/.gitconfig,target=/home/node/.gitconfig,type=bind"
-  ],
-
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
       // Add the IDs of extensions you want installed when the container is created.
       "extensions": ["Angular.ng-template", "esbenp.prettier-vscode"]
     }
-  },
-
-  "remoteEnv": {
-    "SSH_AUTH_SOCK": "/ssh-agent"
   }
 }
