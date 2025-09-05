@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal, computed } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,8 +11,6 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  constructor(private router: Router) {}
-
   // In a real app, this would come from an authentication service.
   isLoggedIn = signal(true);
 

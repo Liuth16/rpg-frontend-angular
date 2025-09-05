@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
@@ -21,35 +21,32 @@ import { CardModule } from 'primeng/card';
   styleUrl: './login.css',
 })
 export class Login {
-  messageService = inject(MessageService);
+  #messageService = inject(MessageService);
+  #fb = inject(FormBuilder);
 
-  loginForm: FormGroup;
+  formSubmitted = signal(false);
 
-  formSubmitted = false;
-
-  constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-    });
-  }
+  loginForm = this.#fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+  });
 
   onSubmit() {
-    this.formSubmitted = true;
+    this.formSubmitted.set(true);
     if (this.loginForm.valid) {
-      this.messageService.add({
+      this.#messageService.add({
         severity: 'success',
         summary: 'Success',
         detail: 'Logged in successfully',
         life: 3000,
       });
       this.loginForm.reset();
-      this.formSubmitted = false;
+      this.formSubmitted.set(false);
     }
   }
 
   isInvalid(controlName: string) {
     const control = this.loginForm.get(controlName);
-    return control?.invalid && (control.touched || this.formSubmitted);
+    return control?.invalid && (control.touched || this.formSubmitted());
   }
 }
