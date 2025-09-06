@@ -22,6 +22,10 @@ export class Header {
           routerLink: '/',
         },
         {
+          label: 'Profile',
+          routerLink: '/profile',
+        },
+        {
           label: 'Characters',
           routerLink: '/characters',
         },
