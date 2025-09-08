@@ -1,21 +1,14 @@
-<div>
-  <p-dataView [value]="profileService.characters()">
-    <ng-template #list let-characters>
-      <div>Characters:</div>
-      @for (character of characters; track character.charId) {
-      <div
-        class="border-2 m-2 p-4 rounded-lg cursor-pointer transition-all"
-        [class.border-blue-500]="profileService.selectedCharacter()?.charId !== character.charId"
-        [class.bg-blue-100]="profileService.selectedCharacter()?.charId === character.charId"
-        [class.border-blue-800]="profileService.selectedCharacter()?.charId === character.charId"
-        [class.shadow-lg]="profileService.selectedCharacter()?.charId === character.charId"
-        (click)="selectCharacter(character)"
-      >
-        <h3 class="text-lg font-bold">{{ character.name }}</h3>
-        <p>Class: {{ character.class }}</p>
-        <p>Level: {{ character.level }}</p>
-      </div>
-      }
-    </ng-template>
-  </p-dataView>
-</div>
+<p-listbox
+  [options]="profileService.characters()"
+  [ngModel]="profileService.selectedCharacter()"
+  (onChange)="selectCharacter($event.value)"
+  optionLabel="name"
+>
+  <ng-template #item let-character>
+    <div>
+      <h3 class="text-lg font-bold">{{ character.name }}</h3>
+      <p>Class: {{ character.class }}</p>
+      <p>Level: {{ character.level }}</p>
+    </div>
+  </ng-template>
+</p-listbox>

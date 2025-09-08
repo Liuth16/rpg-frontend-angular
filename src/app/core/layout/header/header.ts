@@ -22,6 +22,10 @@ export class Header {
           routerLink: '/',
         },
         {
+          label: 'Play',
+          routerLink: '/play',
+        },
+        {
           label: 'Profile',
           routerLink: '/profile',
         },

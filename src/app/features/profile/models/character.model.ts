@@ -1,4 +1,5 @@
 export interface Campaign {
+  campaignId: number;
   campaignName: string;
   campaignDescription: string;
 }

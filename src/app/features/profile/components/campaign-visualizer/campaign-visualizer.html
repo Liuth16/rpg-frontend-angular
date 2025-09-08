@@ -1,14 +1,15 @@
-<div class="p-4">
-  <h2 class="text-xl font-semibold mb-4">Current Campaigns</h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    @for (character of profileService.characters(); track character.charId) {
-    <div class="border-2 border-green-500 m-2 p-4 rounded-lg shadow-md">
-      <h3 class="text-lg font-bold text-green-800">{{ character.name }}</h3>
-      <div class="mt-2">
-        <h4 class="font-semibold">{{ character.currentCampaign.campaignName }}</h4>
-        <p class="text-gray-600">{{ character.currentCampaign.campaignDescription }}</p>
+<div>
+  <p-dataview #dv [value]="profileService.characters()">
+    <ng-template #list let-characters>
+      @for(character of characters; track character.charId) {
+      <div class="border-2 border-green-500 m-2 p-4 rounded-lg shadow-md">
+        <h3 class="text-lg font-bold text-green-800">{{ character.name }}</h3>
+        <div class="mt-2">
+          <h4 class="font-semibold">{{ character.currentCampaign.campaignName }}</h4>
+          <p class="text-gray-600">{{ character.currentCampaign.campaignDescription }}</p>
+        </div>
       </div>
-    </div>
-    }
-  </div>
+      }
+    </ng-template>
+  </p-dataview>
 </div>

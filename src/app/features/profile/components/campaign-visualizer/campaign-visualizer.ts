@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProfileService } from '../../services/profile-service';
 import { DataViewModule } from 'primeng/dataview';
 
