@@ -16,5 +16,6 @@ export class CharacterVisualizer {
 
   selectCharacter(character: Character): void {
     this.profileService.selectCharacter(character);
+    console.log('Character selected:', character);
   }
 }

@@ -1,1 +1,26 @@
-<p>edit-character works!</p>
+@if (character) {
+<form [formGroup]="characterForm" (ngSubmit)="save()">
+  <h2>Edit {{ character.name }}'s Attributes</h2>
+
+  <div class="p-fluid p-grid">
+    <div class="p-field p-col-12 p-md-4">
+      <label for="strength">Strength</label>
+      <p-inputNumber inputId="strength" formControlName="strength"></p-inputNumber>
+    </div>
+
+    <div class="p-field p-col-12 p-md-4">
+      <label for="dexterity">Dexterity</label>
+      <p-inputNumber inputId="dexterity" formControlName="dexterity"></p-inputNumber>
+    </div>
+
+    <div class="p-field p-col-12 p-md-4">
+      <label for="intelligence">Intelligence</label>
+      <p-inputNumber inputId="intelligence" formControlName="intelligence"></p-inputNumber>
+    </div>
+  </div>
+
+  <p-button label="Save" type="submit" [disabled]="characterForm.invalid"></p-button>
+</form>
+} @else {
+<p>No character selected. Please select a character to edit.</p>
+}

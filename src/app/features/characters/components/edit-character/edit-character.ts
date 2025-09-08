@@ -1,78 +1,75 @@
-import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProfileService } from '../../../../shared/profile-service';
 import { Character } from '../../../profile/models/character.model';
-import { Attributes } from '../../../profile/models/character.model';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-edit-character',
-  imports: [],
   templateUrl: './edit-character.html',
-  styleUrl: './edit-character.css',
+  imports: [ReactiveFormsModule, InputNumberModule, ButtonModule],
 })
-export class EditCharacter {
-  @Input({ required: true }) character!: Character;
+export class EditCharacter implements OnInit {
+  private readonly profileService = inject(ProfileService);
+  private readonly fb = inject(FormBuilder);
 
-  // Outputs to communicate back to the parent component.
-  @Output() save = new EventEmitter<Character>();
-  @Output() cancel = new EventEmitter<void>();
+  protected character: Character | null = null;
+  protected characterForm!: FormGroup;
 
-  // Local signals to manage the editable state without modifying the original object directly.
-  skillPoints = signal(0);
-  attributes = {
-    strength: signal(0),
-    dexterity: signal(0),
-    intelligence: signal(0),
+  mockCharacter = {
+    charId: 2,
+    name: 'Ferumbras',
+    level: 8,
+    class: 'Wizard',
+    attributes: {
+      strength: 8,
+      dexterity: 12,
+      intelligence: 20,
+    },
+    currentCampaign: {
+      campaignId: 6,
+      campaignName: 'Traveling to OZ',
+      campaignDescription: 'A magical journey to the land of OZ.',
+    },
+    pastCampaigns: [
+      {
+        campaignId: 3,
+        campaignName: 'Wizard school',
+        campaignDescription: 'A journey through the arcane arts.',
+      },
+      {
+        campaignId: 4,
+        campaignName: 'Discovering powers',
+        campaignDescription: 'A journey of self-discovery and mastering new abilities.',
+      },
+    ],
   };
 
-  // Store the original attributes to prevent decreasing them below their starting values.
-  private originalAttributes!: Character['attributes'];
-
-  // This lifecycle hook runs once when the component is initialized.
   ngOnInit(): void {
-    if (this.character) {
-      // Initialize the signals and original values from the input character.
-      this.originalAttributes = { ...this.character.attributes };
-      this.skillPoints.set(this.character.skillPoints ?? 0);
-      this.attributes.strength.set(this.character.attributes.strength);
-      this.attributes.dexterity.set(this.character.attributes.dexterity);
-      this.attributes.intelligence.set(this.character.attributes.intelligence);
+    this.profileService.selectCharacter(this.mockCharacter);
+    this.character = this.profileService.selectedCharacter() ?? null;
+
+    this.characterForm = this.fb.group({
+      strength: [this.character?.attributes.strength ?? 0],
+      dexterity: [this.character?.attributes.dexterity ?? 0],
+      intelligence: [this.character?.attributes.intelligence ?? 0],
+    });
+  }
+
+  save(): void {
+    if (this.characterForm.valid && this.character) {
+      const updatedAttributes = this.characterForm.value;
+      const updatedCharacter: Character = {
+        ...this.character,
+        attributes: {
+          ...this.character.attributes,
+          ...updatedAttributes,
+        },
+      };
+
+      this.profileService.updateCharacter(updatedCharacter);
+      console.log('Character saved:', updatedCharacter);
     }
-  }
-
-  // Method to increase an attribute
-  increaseAttribute(attr: keyof typeof this.attributes): void {
-    // Only allow increasing if there are skill points available.
-    if (this.skillPoints() > 0) {
-      this.skillPoints.update((sp) => sp - 1);
-      this.attributes[attr].update((val) => val + 1);
-    }
-  }
-
-  // Method to decrease an attribute
-  decreaseAttribute(attr: keyof typeof this.attributes): void {
-    // Only allow decreasing if the current value is greater than the original.
-    if (this.attributes[attr]() > this.originalAttributes[attr]) {
-      this.skillPoints.update((sp) => sp + 1);
-      this.attributes[attr].update((val) => val - 1);
-    }
-  }
-
-  onSave(): void {
-    // Create a new character object with the updated values and emit it.
-    const updatedCharacter: Character = {
-      ...this.character,
-      skillPoints: this.skillPoints(),
-      attributes: {
-        strength: this.attributes.strength(),
-        dexterity: this.attributes.dexterity(),
-        intelligence: this.attributes.intelligence(),
-      },
-    };
-    this.save.emit(updatedCharacter);
-  }
-
-  onCancel(): void {
-    // Emit the cancel event.
-    this.cancel.emit();
   }
 }
