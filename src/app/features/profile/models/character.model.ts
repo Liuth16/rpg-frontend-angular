@@ -1,5 +1,5 @@
 export interface Campaign {
-  campaignId: number;
+  campaignId?: number;
   campaignName: string;
   campaignDescription: string;
 }
@@ -11,11 +11,12 @@ export interface Attributes {
 }
 
 export interface Character {
-  charId: number;
+  charId?: number;
   name: string;
   level: number;
   class: string;
   attributes: Attributes;
-  currentCampaign: Campaign;
-  pastCampaigns: Campaign[];
+  skillPoints?: number;
+  currentCampaign?: Campaign;
+  pastCampaigns?: Campaign[];
 }
