@@ -1,1 +1,21 @@
-<p>campaign-history-visualizer works!</p>
+<div class="p-4">
+  @if (profileService.selectedCharacter(); as selectedCharacter) {
+  <h2 class="text-xl font-semibold mb-4">
+    Past Campaigns for <span class="text-blue-800">{{ selectedCharacter.name }}</span>
+  </h2>
+  @if (profileService.pastCampaigns().length > 0) {
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    @for (campaign of profileService.pastCampaigns(); track campaign.campaignName) {
+    <div class="border-2 border-gray-400 m-2 p-4 rounded-lg shadow-md">
+      <h3 class="text-lg font-bold text-gray-800">{{ campaign.campaignName }}</h3>
+      <p class="text-gray-600">{{ campaign.campaignDescription }}</p>
+    </div>
+    }
+  </div>
+  } @else {
+  <p>{{ selectedCharacter.name }} has no past campaigns.</p>
+  } } @else {
+  <h2 class="text-xl font-semibold mb-4">Past Campaigns</h2>
+  <p class="text-gray-500">Select a character to see their campaign history.</p>
+  }
+</div>
