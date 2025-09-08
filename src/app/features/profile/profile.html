@@ -1,0 +1,13 @@
+<div>
+  <p-splitter [panelSizes]="[25, 50, 25]" class="h-screen">
+    <ng-template #panel>
+      <app-character-visualizer></app-character-visualizer>
+    </ng-template>
+    <ng-template #panel>
+      <app-campaign-visualizer></app-campaign-visualizer>
+    </ng-template>
+    <ng-template #panel>
+      <div class="flex items-center justify-center">Character History</div>
+    </ng-template>
+  </p-splitter>
+</div>
