@@ -6,6 +6,8 @@ import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +25,8 @@ import { CardModule } from 'primeng/card';
 export class Login {
   #messageService = inject(MessageService);
   #fb = inject(FormBuilder);
+  #auth = inject(AuthService);
+  #router = inject(Router);
 
   formSubmitted = signal(false);
 
@@ -33,15 +37,30 @@ export class Login {
 
   onSubmit() {
     this.formSubmitted.set(true);
+
     if (this.loginForm.valid) {
-      this.#messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Logged in successfully',
-        life: 3000,
+      const { email, password } = this.loginForm.value;
+
+      this.#auth.login(email!, password!).subscribe({
+        next: () => {
+          this.#messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Logged in successfully',
+            life: 1000,
+          });
+
+          setTimeout(() => this.#router.navigate(['/profile']), 1000);
+        },
+        error: (err) => {
+          this.#messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error?.detail || 'Login failed',
+            life: 3000,
+          });
+        },
       });
-      this.loginForm.reset();
-      this.formSubmitted.set(false);
     }
   }
 

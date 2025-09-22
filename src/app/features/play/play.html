@@ -1,0 +1,69 @@
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-6 p-6">
+  <!-- Campaigns List -->
+  <div>
+    <h2 class="text-lg font-bold mb-4">Active Campaigns</h2>
+    <div class="flex flex-col gap-3">
+      @for (camp of campaigns(); track camp.id) {
+      <p-card [header]="camp.campaign_name">
+        <p><strong>Character:</strong> {{ camp.character.name }}</p>
+        <p>{{ camp.campaign_description }}</p>
+        <button pButton label="Play" (click)="selectCampaign(camp.id)" class="mt-2"></button>
+      </p-card>
+      }
+    </div>
+  </div>
+
+  <!-- Play Area -->
+  <div class="col-span-2 flex flex-col gap-4">
+    @if (selectedCampaign()) {
+    <p-card [header]="selectedCampaign().name">
+      <!-- Chat log -->
+      <div class="h-64 overflow-y-auto border rounded p-2 bg-gray-50 flex flex-col gap-2">
+        @for (turn of turns(); track turn.id) {
+        <div class="text-blue-600"><strong>You:</strong> {{ turn.user_input }}</div>
+        <div class="text-green-700"><strong>Narrator:</strong> {{ turn.narrative }}</div>
+        @if (turn.effects?.length > 0) {
+        <ul class="ml-4 text-sm">
+          @for (eff of turn.effects; track $index) {
+          <li>Effect: {{ eff.type }} → {{ eff.target }} ({{ eff.value ?? 'N/A' }})</li>
+          }
+        </ul>
+        } }
+      </div>
+
+      <!-- Current Combat State -->
+      @if (currentCombat()) {
+      <div class="mt-4 p-2 border rounded bg-red-50">
+        <h3 class="font-semibold">Combat</h3>
+        <div class="flex justify-between">
+          <div>
+            <h4 class="font-medium">Player</h4>
+            <p>
+              Health: {{ currentCombat().player.health }} / {{ currentCombat().player.max_health }}
+            </p>
+          </div>
+          <div>
+            <h4 class="font-medium">Enemy</h4>
+            <p>
+              Health: {{ currentCombat().enemy.health }} / {{ currentCombat().enemy.max_health }}
+            </p>
+          </div>
+        </div>
+      </div>
+      }
+
+      <!-- Input -->
+      <div class="flex gap-2 mt-4">
+        <input
+          pInputText
+          [(ngModel)]="actionInput"
+          placeholder="Type your action..."
+          class="flex-1"
+          (keyup.enter)="sendAction()"
+        />
+        <button pButton label="Send" (click)="sendAction()"></button>
+      </div>
+    </p-card>
+    }
+  </div>
+</div>

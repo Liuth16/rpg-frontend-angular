@@ -1,13 +1,13 @@
-<div>
-  <p-splitter [panelSizes]="[25, 50, 25]" class="h-screen">
-    <ng-template #panel>
-      <app-character-visualizer></app-character-visualizer>
-    </ng-template>
-    <ng-template #panel>
-      <app-campaign-visualizer></app-campaign-visualizer>
-    </ng-template>
-    <ng-template #panel>
-      <app-campaign-history-visualizer></app-campaign-history-visualizer>
-    </ng-template>
-  </p-splitter>
+<div class="card flex justify-center items-center h-screen">
+  <p-card header="Profile" class="w-full sm:w-96">
+    @if (user()) {
+    <div class="flex flex-col gap-2">
+      <p><strong>ID:</strong> {{ user().id }}</p>
+      <p><strong>Name:</strong> {{ user().name }}</p>
+      <p><strong>Email:</strong> {{ user().email }}</p>
+    </div>
+    } @else {
+    <p>Loading profile...</p>
+    }
+  </p-card>
 </div>

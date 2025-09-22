@@ -3,6 +3,8 @@ import { Login } from './core/auth/login/login';
 import { Register } from './core/auth/register/register';
 import { Profile } from './features/profile/profile';
 import { Characters } from './features/characters/characters';
+import { authGuard } from './core/auth/auth.guard';
+import { Play } from './features/play/play';
 
 export const routes: Routes = [
   {
@@ -15,6 +17,7 @@ export const routes: Routes = [
     component: Register,
     title: 'Register',
   },
-  { path: 'profile', component: Profile, title: 'Profile' },
-  { path: 'characters', component: Characters, title: 'Characters' },
+  { path: 'profile', component: Profile, title: 'Profile', canActivate: [authGuard] },
+  { path: 'characters', component: Characters, title: 'Characters', canActivate: [authGuard] },
+  { path: 'play', component: Play, title: 'Play', canActivate: [authGuard] },
 ];

@@ -1,4 +1,55 @@
-<div>
-  <app-character-list></app-character-list>
-  <app-edit-character></app-edit-character>
+<div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+  <!-- Characters List -->
+  <div>
+    <h2 class="text-lg font-bold mb-4">Your Characters</h2>
+    <div class="flex flex-col gap-3">
+      @for (char of characters(); track char.id) {
+      <p-card [header]="char.name" class="cursor-pointer" (click)="viewCharacter(char.id)">
+        <p><strong>Race:</strong> {{ char.race }}</p>
+        <p><strong>Class:</strong> {{ char.char_class }}</p>
+        <p><strong>Level:</strong> {{ char.level }}</p>
+      </p-card>
+      }
+    </div>
+  </div>
+
+  <!-- Character Details -->
+  <div>
+    @if (selectedCharacter()) {
+    <h2 class="text-lg font-bold mb-4">Details</h2>
+    <p-card [header]="selectedCharacter().name">
+      <p><strong>Race:</strong> {{ selectedCharacter().race }}</p>
+      <p><strong>Class:</strong> {{ selectedCharacter().char_class }}</p>
+      <p><strong>Description:</strong> {{ selectedCharacter().description }}</p>
+      <p><strong>Level:</strong> {{ selectedCharacter().level }}</p>
+      <p>
+        <strong>Health:</strong> {{ selectedCharacter().current_health }} /
+        {{ selectedCharacter().max_health }}
+      </p>
+      <p><strong>Skill Points:</strong> {{ selectedCharacter().skill_points }}</p>
+
+      <h3 class="mt-4 font-semibold">Current Campaign</h3>
+      @if (selectedCharacter().current_campaign) {
+      <p>
+        {{ selectedCharacter().current_campaign.campaign_name }} ({{
+          selectedCharacter().current_campaign.mode
+        }})
+      </p>
+      } @else {
+      <p>No active campaign.</p>
+      }
+
+      <h3 class="mt-4 font-semibold">Past Campaigns</h3>
+      @if (selectedCharacter().past_campaigns.length > 0) {
+      <ul>
+        @for (camp of selectedCharacter().past_campaigns; track camp.id) {
+        <li>{{ camp.campaign_name }} ({{ camp.mode }})</li>
+        }
+      </ul>
+      } @else {
+      <p>No past campaigns.</p>
+      }
+    </p-card>
+    }
+  </div>
 </div>

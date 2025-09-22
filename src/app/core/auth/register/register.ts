@@ -13,6 +13,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { CardModule } from 'primeng/card';
+import { AuthService } from '../services/auth.service';
 
 // THIS MAY BE MOVED TO A SEPARATE FILE LATER
 export function passwordsMatchValidator(control: AbstractControl): ValidationErrors | null {
@@ -40,10 +41,13 @@ export function passwordsMatchValidator(control: AbstractControl): ValidationErr
 export class Register {
   #messageService = inject(MessageService);
   #fb = inject(FormBuilder);
+  #auth = inject(AuthService);
+
   formSubmitted = signal(false);
 
   registerForm = this.#fb.group(
     {
+      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
@@ -53,15 +57,30 @@ export class Register {
 
   onSubmit(): void {
     this.formSubmitted.set(true);
+
     if (this.registerForm.valid) {
-      this.#messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Registered successfully',
-        life: 3000,
+      const { username, email, password } = this.registerForm.value;
+
+      this.#auth.signup(username!, email!, password!).subscribe({
+        next: () => {
+          this.#messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Registered successfully',
+            life: 3000,
+          });
+          this.registerForm.reset();
+          this.formSubmitted.set(false);
+        },
+        error: (err) => {
+          this.#messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error?.detail || 'Registration failed',
+            life: 3000,
+          });
+        },
       });
-      this.registerForm.reset();
-      this.formSubmitted.set(false);
     }
   }
 

@@ -1,13 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { SplitterModule } from 'primeng/splitter';
-import { CharacterVisualizer } from './components/character-visualizer/character-visualizer';
-import { CampaignVisualizer } from './components/campaign-visualizer/campaign-visualizer';
-import { CampaignHistoryVisualizer } from './components/campaign-history-visualizer/campaign-history-visualizer';
+import { DataService } from '../services/data.service';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-profile',
-  imports: [SplitterModule, CharacterVisualizer, CampaignVisualizer, CampaignHistoryVisualizer],
+  imports: [SplitterModule, CardModule],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
-export class Profile {}
+export class Profile {
+  #data = inject(DataService);
+  user = signal<any | null>(null);
+
+  ngOnInit() {
+    this.#data.getMe().subscribe({
+      next: (res) => this.user.set(res),
+      error: () => this.user.set(null),
+    });
+  }
+}

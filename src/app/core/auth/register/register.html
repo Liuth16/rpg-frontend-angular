@@ -1,11 +1,27 @@
 <p-toast />
 <div class="card flex justify-center items-center h-screen">
-  <p-card header="Login">
+  <p-card header="Register">
     <form
       [formGroup]="registerForm"
       (ngSubmit)="onSubmit()"
       class="flex flex-col gap-4 w-full sm:w-56"
     >
+      <!-- Username -->
+      <div class="flex flex-col gap-1">
+        <input
+          pInputText
+          type="text"
+          id="username"
+          placeholder="Username"
+          formControlName="username"
+          [invalid]="isInvalid('username')"
+        />
+        @if (isInvalid('username')) {
+        <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+        }
+      </div>
+
+      <!-- Email -->
       <div class="flex flex-col gap-1">
         <input
           pInputText
@@ -23,6 +39,8 @@
         >
         } }
       </div>
+
+      <!-- Password -->
       <div class="flex flex-col gap-1">
         <input
           pInputText
@@ -36,6 +54,8 @@
         <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
         }
       </div>
+
+      <!-- Confirm Password -->
       <div class="flex flex-col gap-1">
         <input
           pInputText
@@ -47,14 +67,15 @@
         />
         @if (isInvalid('confirmPassword') &&
         registerForm.get('confirmPassword')?.errors?.['required']) {
-        <p-message severity="error" size="small" variant="simple"
-          >Confirming your password is required.</p-message
-        >
+        <p-message severity="error" size="small" variant="simple">
+          Confirming your password is required.
+        </p-message>
         } @if (registerForm.errors?.['passwordsMismatch'] &&
         (registerForm.get('confirmPassword')?.touched || formSubmitted())) {
         <p-message severity="error" size="small" variant="simple">Passwords must match.</p-message>
         }
       </div>
+
       <button pButton severity="secondary" type="submit"><span pButtonLabel>Register</span></button>
     </form>
   </p-card>

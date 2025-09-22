@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, signal, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, computed, inject } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,11 +12,10 @@ import { MenuItem } from 'primeng/api';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  // In a real app, this would come from an authentication service.
-  isLoggedIn = signal(true);
+  #auth = inject(AuthService);
 
   items = computed<MenuItem[]>(() => {
-    if (this.isLoggedIn()) {
+    if (this.#auth.isLoggedIn()) {
       return [
         {
           label: 'Home',
@@ -43,7 +43,7 @@ export class Header {
         },
         {
           label: 'Logout',
-          command: () => this.logout(),
+          command: () => this.#auth.logout(),
         },
       ];
     } else {
@@ -63,7 +63,4 @@ export class Header {
       ];
     }
   });
-  logout(): void {
-    this.isLoggedIn.set(false);
-  }
 }
