@@ -61,4 +61,15 @@ export class Play {
     }
     return null;
   }
+
+  currentLife() {
+    const turns = this.turns();
+    if (turns.length > 0) {
+      return {
+        player: turns[turns.length - 1].character_health,
+        enemy: turns[turns.length - 1].enemy_health,
+      }; // last turn’s life
+    }
+    return null;
+  }
 }

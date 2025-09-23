@@ -1,14 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
-import { CharacterList } from './components/character-list/character-list';
-import { EditCharacter } from './components/edit-character/edit-character';
 import { DataService } from '../services/data.service';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-
+import { SkeletonModule } from 'primeng/skeleton';
+import { Splitter } from 'primeng/splitter';
+import { ScrollPanelModule, ScrollPanel } from 'primeng/scrollpanel';
 @Component({
   selector: 'app-characters',
-  imports: [CommonModule, CardModule, ButtonModule],
+  imports: [CommonModule, CardModule, ButtonModule, SkeletonModule, Splitter, ScrollPanel],
   templateUrl: './characters.html',
   styleUrl: './characters.css',
 })
@@ -28,5 +28,6 @@ export class Characters {
     this.#data.getCharacter(charId).subscribe({
       next: (res) => this.selectedCharacter.set(res),
     });
+    console.log(this.characters());
   }
 }

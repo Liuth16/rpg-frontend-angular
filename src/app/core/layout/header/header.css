@@ -1,0 +1,55 @@
+.blz-nav {
+  /* === Root === */
+  --p-menubar-background: rgba(52, 46, 41); /* background of the bar */
+  --p-menubar-border-color: transparent;
+  --p-menubar-color: #fff; /* fallback root text color */
+  --p-menubar-gap: 1rem;
+  --p-menubar-padding: 0.5rem 1rem;
+
+  /* === Base item === */
+  --p-menubar-base-item-border-radius: 4px;
+  --p-menubar-base-item-padding: 0.5rem 0.75rem;
+
+  /* === Item states === */
+  --p-menubar-item-color: #fff; /* default */
+  --p-menubar-item-hover-color: #fff; /* when hovered */
+  --p-menubar-item-focus-color: #fff; /* when focused */
+  --p-menubar-item-active-color: #fff; /* when active */
+
+  --p-menubar-item-background: transparent; /* base background */
+  --p-menubar-item-hover-background: #ffffff0d; /* translucent white */
+  --p-menubar-item-focus-background: #ffffff0d;
+  --p-menubar-item-active-background: #ffffff1a;
+
+  --p-menubar-item-border-radius: 4px;
+  --p-menubar-item-padding: 0.5rem 1rem;
+  --p-menubar-item-gap: 0.5rem;
+
+  /* === Icons === */
+  --p-menubar-item-icon-color: #fff;
+  --p-menubar-item-icon-hover-color: #fff;
+  --p-menubar-item-icon-focus-color: #fff;
+  --p-menubar-item-icon-active-color: #fff;
+
+  /* === Submenu === */
+  --p-menubar-submenu-background: rgba(40, 36, 32);
+  --p-menubar-submenu-border-color: transparent;
+  --p-menubar-submenu-border-radius: 4px;
+  --p-menubar-submenu-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --p-menubar-submenu-padding: 0.5rem;
+  --p-menubar-submenu-gap: 0.25rem;
+
+  --p-menubar-submenu-icon-color: #fff;
+  --p-menubar-submenu-icon-hover-color: #fff;
+  --p-menubar-submenu-icon-focus-color: #fff;
+  --p-menubar-submenu-icon-active-color: #fff;
+
+  /* === Separator === */
+  --p-menubar-separator-border-color: #666;
+
+  /* === Mobile button (hamburger) === */
+  --p-menubar-mobile-button-color: #fff;
+  --p-menubar-mobile-button-hover-color: #ffcc00;
+  --p-menubar-mobile-button-hover-background: #ffffff0d;
+  --p-menubar-mobile-button-border-radius: 4px;
+}

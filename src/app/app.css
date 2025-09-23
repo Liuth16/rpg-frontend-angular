@@ -1,0 +1,23 @@
+/* This makes sure our root container can fill the screen height */
+:host {
+  display: block;
+  height: 100vh;
+}
+
+/* 1. Make the main container a flex container */
+.app-container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  height: 100%; /* Fill the height of the :host */
+}
+
+/* 2. Tell the header to take up only the space it needs */
+app-header {
+  flex-shrink: 0; /* Prevents the header from shrinking if content is too long */
+}
+
+/* 3. Tell the main content area to grow and fill all available space */
+.content-area {
+  flex-grow: 1; /* This is the key property! */
+  overflow-y: auto; /* Add a scrollbar if the content inside is too tall */
+}

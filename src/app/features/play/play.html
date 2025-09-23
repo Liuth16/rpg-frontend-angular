@@ -38,15 +38,11 @@
         <div class="flex justify-between">
           <div>
             <h4 class="font-medium">Player</h4>
-            <p>
-              Health: {{ currentCombat().player.health }} / {{ currentCombat().player.max_health }}
-            </p>
+            <p>Health: {{ currentLife()?.player }} / {{ currentCombat().player.max_health }}</p>
           </div>
           <div>
             <h4 class="font-medium">Enemy</h4>
-            <p>
-              Health: {{ currentCombat().enemy.health }} / {{ currentCombat().enemy.max_health }}
-            </p>
+            <p>Health: {{ currentLife()?.enemy }} / {{ currentCombat().enemy.max_health }}</p>
           </div>
         </div>
       </div>
