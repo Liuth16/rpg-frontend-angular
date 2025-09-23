@@ -1,28 +1,60 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DataService } from '../services/data.service';
+import { ScrollPanel } from 'primeng/scrollpanel';
+import { Skeleton } from 'primeng/skeleton';
+
 @Component({
   selector: 'app-play',
-  imports: [CommonModule, FormsModule, CardModule, ButtonModule, InputTextModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    CardModule,
+    ButtonModule,
+    InputTextModule,
+    ScrollPanel,
+    Skeleton,
+  ],
   templateUrl: './play.html',
   styleUrl: './play.css',
 })
-export class Play {
+export class Play implements OnInit, AfterViewChecked {
   #data = inject(DataService);
+
   campaigns = signal<any[]>([]);
   selectedCampaign = signal<any | null>(null);
   history = signal<any | null>(null);
 
   actionInput = '';
 
+  // Chat container reference for auto-scroll
+  @ViewChild('chatContainer') chatContainer!: ElementRef;
+  private shouldScroll = false;
+
   ngOnInit() {
     this.#data.getActiveCampaigns().subscribe({
       next: (res) => this.campaigns.set(res),
     });
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.shouldScroll && this.chatContainer) {
+      this.scrollToBottom();
+      this.shouldScroll = false;
+    }
   }
 
   selectCampaign(campaignId: string) {
@@ -33,6 +65,7 @@ export class Play {
         name: res.campaign_name,
         mode: res.mode,
       });
+      this.shouldScroll = true;
     });
   }
 
@@ -42,34 +75,52 @@ export class Play {
     const campaignId = this.selectedCampaign().id;
 
     this.#data.doAction(campaignId, this.actionInput).subscribe(() => {
-      // after action, reload history so chat + combat refresh
-      this.#data.getHistory(campaignId).subscribe((res) => this.history.set(res));
+      this.#data.getHistory(campaignId).subscribe((res) => {
+        this.history.set(res);
+        this.shouldScroll = true;
+      });
     });
 
     this.actionInput = '';
   }
 
-  // Convenience getter for turns
   turns() {
     return this.history()?.turns ?? [];
   }
 
   currentCombat() {
     const turns = this.turns();
-    if (turns.length > 0) {
-      return turns[turns.length - 1].combat_state; // last turn’s combat
-    }
-    return null;
+    return turns.length > 0 ? turns[turns.length - 1].combat_state : null;
   }
 
   currentLife() {
     const turns = this.turns();
-    if (turns.length > 0) {
-      return {
-        player: turns[turns.length - 1].character_health,
-        enemy: turns[turns.length - 1].enemy_health,
-      }; // last turn’s life
+    return turns.length > 0
+      ? {
+          player: turns[turns.length - 1].character_health,
+          enemy: turns[turns.length - 1].enemy_health,
+        }
+      : null;
+  }
+
+  turnEffects(turn: any) {
+    return (
+      turn.effects?.map((eff: any) => {
+        const target =
+          eff.target === 'self' ? 'Player' : eff.target === 'enemy' ? 'Enemy' : eff.target;
+        return `${eff.type} → ${target} (${eff.value ?? ''})`;
+      }) ?? []
+    );
+  }
+
+  private scrollToBottom() {
+    try {
+      this.chatContainer.nativeElement.scrollTo({
+        top: this.chatContainer.nativeElement.scrollHeight,
+        behavior: 'smooth',
+      });
+    } catch (err) {
+      console.error('Auto-scroll failed', err);
     }
-    return null;
   }
 }

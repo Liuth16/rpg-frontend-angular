@@ -54,3 +54,64 @@
   --p-menubar-mobile-button-hover-background: #ffffff0d;
   --p-menubar-mobile-button-border-radius: 4px;
 }
+
+.blz-button {
+  background: linear-gradient(
+      180deg,
+      rgba(47, 37, 36, 0.66) 0%,
+      rgba(92, 67, 64, 0.5) 51.5%,
+      rgba(128, 90, 85, 0.42) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(66, 50, 48, 0.42) 0%,
+      rgba(66, 50, 48, 0) 33%,
+      rgba(66, 50, 48, 0) 66%,
+      rgba(66, 50, 48, 0.42) 100%
+    ),
+    radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%),
+    var(--buttontroll-background-image) 0% 0%/66.0000026226px 66.0000026226px round, #5c4340;
+  background-blend-mode: overlay, multiply, normal, normal, normal;
+  border: 2px solid rgba(255, 255, 255, 0.07);
+  border-radius: 0.375rem;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.66);
+}
+
+.character-select-background {
+  background: linear-gradient(
+      180deg,
+      rgba(47, 37, 36, 0.66) 0%,
+      rgba(92, 67, 64, 0.5) 51.5%,
+      rgba(128, 90, 85, 0.42) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(66, 50, 48, 0.42) 0%,
+      rgba(66, 50, 48, 0) 33%,
+      rgba(66, 50, 48, 0) 66%,
+      rgba(66, 50, 48, 0.42) 100%
+    ),
+    radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%),
+    var(--background-details-image) center center/cover no-repeat;
+  background-blend-mode: overlay, multiply, normal, normal;
+  border: 15px solid rgba(255, 255, 255, 0.07);
+  border-radius: 0.375rem;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.66);
+  border-image: var(--custom-border) 30 stretch;
+}
+
+.details-background {
+  background: var(--background-details-image) center/220% 220% no-repeat;
+  background-blend-mode: normal;
+  border: 15px solid transparent;
+  border-image: var(--custom-border) 30 stretch;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.66);
+}
+
+.character-card {
+  background: transparent;
+  box-shadow: none;
+  border-bottom: solid 8px rgba(0, 0, 0, 0.66);
+  border-radius: 0px;
+  border-image: var(--buttontroll-background-image) 30 stretch;
+}

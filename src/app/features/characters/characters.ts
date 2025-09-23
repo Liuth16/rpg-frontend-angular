@@ -8,7 +8,7 @@ import { Splitter } from 'primeng/splitter';
 import { ScrollPanelModule, ScrollPanel } from 'primeng/scrollpanel';
 @Component({
   selector: 'app-characters',
-  imports: [CommonModule, CardModule, ButtonModule, SkeletonModule, Splitter, ScrollPanel],
+  imports: [CommonModule, CardModule, ButtonModule, SkeletonModule, ScrollPanel],
   templateUrl: './characters.html',
   styleUrl: './characters.css',
 })

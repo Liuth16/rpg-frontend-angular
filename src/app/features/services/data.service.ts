@@ -39,6 +39,10 @@ export class DataService {
     return this.#http.get(`${this.apiUrl}/campanha`);
   }
 
+  getCampaign(campaignId: string) {
+    return this.#http.get(`${this.apiUrl}/campanha/${campaignId}`);
+  }
+
   getHistory(campaignId: string) {
     return this.#http.get<any>(`${this.apiUrl}/historico/${campaignId}`);
   }
