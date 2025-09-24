@@ -1,6 +1,7 @@
 :host {
   display: block;
-  /* Layer gradients over the large background image */
+  min-height: 100vh;
+  min-height: 100dvh;
   background: linear-gradient(
       180deg,
       rgba(47, 37, 36, 0.66) 0%,
@@ -19,34 +20,43 @@
   background-blend-mode: overlay, multiply, normal, normal;
   padding: 1.5rem;
   box-sizing: border-box;
-  min-height: 100vh;
-  min-height: 100dvh; /* overrides if supported */
 }
 
-.chat-background {
-  background: var(--background-details-image) center/220% 220% no-repeat;
-  border: 15px solid transparent;
-  border-image: var(--custom-border) 30 stretch;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.66);
+.play-layout {
+  display: flex;
+  gap: 1.5rem;
+  height: 100%;
 }
 
-@media (min-width: 641px) {
-  .play-grid {
-    grid-template-columns: 1fr 2fr; /* campaigns | chat/combat */
-    grid-template-rows: auto auto; /* allow stacking */
-    gap: 1.5rem;
-    grid-template-areas:
-      'campaigns chat'
-      'campaigns combat';
-  }
+.left-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+}
 
-  .scroll-panel:nth-child(1) {
-    grid-area: campaigns;
+.right-panel {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-section {
+  flex: none;
+}
+
+.combat-section {
+  flex: none;
+  margin-top: 1rem;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 640px) {
+  .play-layout {
+    flex-direction: column;
   }
-  .scroll-panel:nth-child(2) {
-    grid-area: chat;
-  }
-  .combat-panel {
-    grid-area: combat;
+  .left-panel,
+  .right-panel {
+    width: 100%;
   }
 }
