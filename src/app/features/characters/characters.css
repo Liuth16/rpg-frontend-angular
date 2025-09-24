@@ -19,4 +19,6 @@
   background-blend-mode: overlay, multiply, normal, normal;
   padding: 1.5rem;
   box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh; /* overrides if supported */
 }

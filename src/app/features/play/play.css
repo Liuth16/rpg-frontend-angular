@@ -19,6 +19,8 @@
   background-blend-mode: overlay, multiply, normal, normal;
   padding: 1.5rem;
   box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh; /* overrides if supported */
 }
 
 .chat-background {
@@ -26,4 +28,25 @@
   border: 15px solid transparent;
   border-image: var(--custom-border) 30 stretch;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.66);
+}
+
+@media (min-width: 641px) {
+  .play-grid {
+    grid-template-columns: 1fr 2fr; /* campaigns | chat/combat */
+    grid-template-rows: auto auto; /* allow stacking */
+    gap: 1.5rem;
+    grid-template-areas:
+      'campaigns chat'
+      'campaigns combat';
+  }
+
+  .scroll-panel:nth-child(1) {
+    grid-area: campaigns;
+  }
+  .scroll-panel:nth-child(2) {
+    grid-area: chat;
+  }
+  .combat-panel {
+    grid-area: combat;
+  }
 }

@@ -40,7 +40,6 @@ export class Play implements OnInit, AfterViewChecked {
 
   actionInput = '';
 
-  // Chat container reference for auto-scroll
   @ViewChild('chatContainer') chatContainer!: ElementRef;
   private shouldScroll = false;
 
@@ -84,6 +83,10 @@ export class Play implements OnInit, AfterViewChecked {
     this.actionInput = '';
   }
 
+  useSuggestedAction(action: string) {
+    this.actionInput = action;
+  }
+
   turns() {
     return this.history()?.turns ?? [];
   }
@@ -111,6 +114,19 @@ export class Play implements OnInit, AfterViewChecked {
         return `${eff.type} → ${target} (${eff.value ?? ''})`;
       }) ?? []
     );
+  }
+
+  turnRewards(turn: any) {
+    const rewards: string[] = [];
+    if (turn.enemy_defeated_reward) {
+      if (turn.enemy_defeated_reward.gainedExperience) {
+        rewards.push(`✨ Gained ${turn.enemy_defeated_reward.gainedExperience} XP`);
+      }
+      if (turn.enemy_defeated_reward.loot?.length > 0) {
+        rewards.push(`💰 Loot: ${turn.enemy_defeated_reward.loot.join(', ')}`);
+      }
+    }
+    return rewards;
   }
 
   private scrollToBottom() {
