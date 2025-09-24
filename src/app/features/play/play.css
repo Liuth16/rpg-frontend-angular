@@ -1,13 +1,5 @@
 :host {
-  --background-details-image: url('https://uooutlands.com/wp-content/themes/OutlandsTheme/img/content-bg_mid.png');
-  --background-image: url('https://blz-contentstack-images.akamaized.net/v3/assets/blt77f4425de611b362/blt2d415bbfe83002d7/611583c8d0cc2720527162d3/Stone-Relief-BG_Desktop_2600.jpg');
-  --button-background-image: url('https://blz-contentstack-images.akamaized.net/v3/assets/blt77f4425de611b362/bltee7d90cac60619e6/67e5af5d832818725d4c7cfc/DI_Button-Textures_Secondary-400_001.webp');
-  --buttontroll-background-image: url('https://static.tibia.com/images/global/content/newsheadline_background.gif');
-  --custom-border: url('https://blz-contentstack-images.akamaized.net/v3/assets/blt0e00eb71333df64e/bltcd9c32f26eeccdec/66c3b7e8b1a55eb3094bbd99/media_frame_sm.png?auto=webp');
-
   display: block;
-  min-height: 100vh;
-  overflow: hidden;
   /* Layer gradients over the large background image */
   background: linear-gradient(
       180deg,
