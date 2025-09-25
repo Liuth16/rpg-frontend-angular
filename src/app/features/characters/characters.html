@@ -1,78 +1,78 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<main class="characters-layout">
   <!-- Characters List -->
-
-  <div>
-    <h2 class="text-lg font-bold mb-4">Your Characters</h2>
-    <div class="flex flex-col gap-3">
-      <p-scrollpanel
-        [style]="{ width: '100%', height: '70vh' }"
-        class="character-select-background"
-      >
-        @for (char of characters(); track char.id) {
-        <p-card class="character-card mb-4">
-          <ng-template pTemplate="header">
-            <div class="flex items-center p-4 gap-3">
-              <p-skeleton shape="circle" size="4rem" />
-              <div class="text-xl font-semibold">{{ char.name }}</div>
-            </div>
-          </ng-template>
-          <p><strong>Race:</strong> {{ char.race }}</p>
-          <p><strong>Class:</strong> {{ char.char_class }}</p>
-          <p><strong>Level:</strong> {{ char.level }}</p>
-          <ng-template pTemplate="footer">
-            <div class="flex justify-center align-center">
-              <button
-                pButton
-                type="button"
-                label="Details"
-                class="cursor-pointer w-32 blz-button"
-                (click)="viewCharacter(char.id)"
-              ></button>
-            </div>
-          </ng-template>
-        </p-card>
-        }
-      </p-scrollpanel>
+  <section class="characters-list character-select-background">
+    <header class="panel-header">
+      <h2 class="text-lg font-bold mb-4">Your Characters</h2>
+    </header>
+    <div class="panel-content flex flex-col gap-3 overflow-y-auto p-4">
+      @for (char of characters(); track char.id) {
+      <p-card class="character-card mb-4">
+        <ng-template pTemplate="header">
+          <div class="flex items-center p-4 gap-3">
+            <p-skeleton shape="circle" size="4rem" />
+            <div class="text-xl font-semibold">{{ char.name }}</div>
+          </div>
+        </ng-template>
+        <p><strong>Race:</strong> {{ char.race }}</p>
+        <p><strong>Class:</strong> {{ char.char_class }}</p>
+        <p><strong>Level:</strong> {{ char.level }}</p>
+        <ng-template pTemplate="footer">
+          <div class="flex justify-center align-center">
+            <button
+              pButton
+              type="button"
+              label="Details"
+              class="cursor-pointer w-32 blz-button"
+              (click)="viewCharacter(char.id)"
+            ></button>
+          </div>
+        </ng-template>
+      </p-card>
+      }
     </div>
-  </div>
+  </section>
 
   <!-- Character Details -->
-  <div>
+  <div class="character-details">
     @if (selectedCharacter()) {
-    <h2 class="text-lg font-bold mb-4">Details</h2>
-    <p-card [header]="selectedCharacter().name" class="details-background">
-      <p><strong>Race:</strong> {{ selectedCharacter().race }}</p>
-      <p><strong>Class:</strong> {{ selectedCharacter().char_class }}</p>
-      <p><strong>Description:</strong> {{ selectedCharacter().description }}</p>
-      <p><strong>Level:</strong> {{ selectedCharacter().level }}</p>
-      <p>
-        <strong>Health:</strong> {{ selectedCharacter().current_health }} /
-        {{ selectedCharacter().max_health }}
-      </p>
-      <p><strong>Skill Points:</strong> {{ selectedCharacter().skill_points }}</p>
+    <section class="character-details details-background">
+      <header class="panel-header">
+        <h2 class="text-lg font-bold mb-4">Details</h2>
+      </header>
+      <div class="panel-content p-4 overflow-y-auto">
+        <p><strong>Race:</strong> {{ selectedCharacter().race }}</p>
+        <p><strong>Class:</strong> {{ selectedCharacter().char_class }}</p>
+        <p><strong>Description:</strong> {{ selectedCharacter().description }}</p>
+        <p><strong>Level:</strong> {{ selectedCharacter().level }}</p>
+        <p>
+          <strong>Health:</strong> {{ selectedCharacter().current_health }} /
+          {{ selectedCharacter().max_health }}
+        </p>
+        <p><strong>Skill Points:</strong> {{ selectedCharacter().skill_points }}</p>
 
-      <h3 class="mt-4 font-semibold">Current Campaign</h3>
-      @if (selectedCharacter().current_campaign) {
-      <p>
-        {{ selectedCharacter().current_campaign.campaign_name }} (Game mode:
-        {{ selectedCharacter().current_campaign.mode }})
-      </p>
-      <button pButton type="button" label="Play" class="cursor-pointer w-24"></button>
-      } @else {
-      <p>No active campaign.</p>
-      }
-
-      <h3 class="mt-4 font-semibold">Past Campaigns</h3>
-      @if (selectedCharacter().past_campaigns.length > 0) {
-      <ul>
-        @for (camp of selectedCharacter().past_campaigns; track camp.id) {
-        <li>{{ camp.campaign_name }} ({{ camp.mode }})</li>
+        <h3 class="mt-4 font-semibold">Current Campaign</h3>
+        @if (selectedCharacter().current_campaign) {
+        <p>
+          {{ selectedCharacter().current_campaign.campaign_name }} (Game mode:
+          {{ selectedCharacter().current_campaign.mode }})
+        </p>
+        <button pButton type="button" label="Play" class="cursor-pointer w-24"></button>
+        } @else {
+        <p>No active campaign.</p>
         }
-      </ul>
-      } @else {
-      <p>No past campaigns.</p>
-      }
-    </p-card>
+
+        <h3 class="mt-4 font-semibold">Past Campaigns</h3>
+        @if (selectedCharacter().past_campaigns.length > 0) {
+        <ul>
+          @for (camp of selectedCharacter().past_campaigns; track camp.id) {
+          <li>{{ camp.campaign_name }} ({{ camp.mode }})</li>
+          }
+        </ul>
+        } @else {
+        <p>No past campaigns.</p>
+        }
+      </div>
+    </section>
     }
   </div>
-</div>
+</main>
