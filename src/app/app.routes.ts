@@ -6,6 +6,7 @@ import { Characters } from './features/characters/characters';
 import { History } from './features/history/history';
 import { authGuard } from './core/auth/auth.guard';
 import { Play } from './features/play/play';
+import { CreateCharacter } from './features/components/player-card/player-card';
 
 export const routes: Routes = [
   {
@@ -22,4 +23,10 @@ export const routes: Routes = [
   { path: 'characters', component: Characters, title: 'Characters', canActivate: [authGuard] },
   { path: 'play', component: Play, title: 'Play', canActivate: [authGuard] },
   { path: 'history', component: History, title: 'History', canActivate: [authGuard] },
+  {
+    path: 'campaigns',
+    component: CreateCharacter,
+    title: 'Create character',
+    canActivate: [authGuard],
+  },
 ];

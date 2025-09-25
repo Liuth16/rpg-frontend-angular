@@ -5,7 +5,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-create-character',
@@ -18,8 +18,8 @@ import { DataService } from '../../services/data.service';
     ButtonModule,
     CardModule,
   ],
-  templateUrl: './player-card.html',
-  styleUrl: './player-card.css',
+  templateUrl: './create-character.html',
+  styleUrls: ['./create-character.css'],
 })
 export class CreateCharacter {
   #fb = inject(FormBuilder);
