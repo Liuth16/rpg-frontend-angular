@@ -15,10 +15,9 @@
       rgba(66, 50, 48, 0.42) 100%
     ),
     radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%),
-    var(--background-image) center / cover no-repeat fixed;
+    var(--background-image) center / cover no-repeat;
   background-blend-mode: overlay, multiply, normal, normal;
   padding: 1.5rem;
   box-sizing: border-box;
-  min-height: 100vh;
-  min-height: 100dvh; /* overrides if supported */
+  min-height: 100%;
 }

@@ -1,7 +1,7 @@
 :host {
   display: block;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
   background: linear-gradient(
       180deg,
       rgba(47, 37, 36, 0.66) 0%,
@@ -16,47 +16,108 @@
       rgba(66, 50, 48, 0.42) 100%
     ),
     radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%),
-    var(--background-image) center / cover no-repeat fixed;
+    var(--background-image) center / cover no-repeat;
   background-blend-mode: overlay, multiply, normal, normal;
   padding: 1.5rem;
   box-sizing: border-box;
+  overflow: auto;
 }
 
+/* Layout */
 .play-layout {
   display: flex;
   gap: 1.5rem;
   height: 100%;
+  min-height: 0;
 }
 
 .left-panel {
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: fit-content;
+  min-height: 0;
 }
 
 .right-panel {
   flex: 2;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  min-height: 0;
 }
 
-.chat-section {
-  flex: none;
+/* Chat */
+.chat-panel {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
 }
 
-.combat-section {
-  flex: none;
-  margin-top: 1rem;
+.chat-log {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
-/* Mobile: stack vertically */
-@media (max-width: 640px) {
+/* Input bar now separate */
+.chat-input {
+  flex-shrink: 0;
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Combat */
+.combat-panel {
+  flex: 2;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Mobile: stack panels vertically */
+@media (max-width: 768px) {
   .play-layout {
-    flex-direction: column;
+    flex-direction: column; /* stack instead of side by side */
   }
+
   .left-panel,
   .right-panel {
     width: 100%;
+    flex: none; /* don’t try to stretch unevenly */
+    min-height: auto;
+    max-height: 50vh;
+  }
+
+  /* Chat panel takes most of the vertical space */
+  .chat-panel {
+    flex: none; /* don’t let it eat infinite height */
+    max-height: 70vh; /* chat gets half the screen */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Combat panel follows below */
+  .combat-panel {
+    flex: none;
+  }
+
+  /* Input bar pinned and easy to tap */
+  .chat-input {
+    position: sticky; /* stays visible when scrolling */
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* keep contrast */
+    padding: 0.5rem;
+    z-index: 10;
+  }
+
+  /* Make input and button comfortable for thumb use */
+  .chat-input input {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+  .chat-input button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
   }
 }

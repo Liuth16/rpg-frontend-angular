@@ -8,34 +8,30 @@ import {
   AfterViewChecked,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import { DataService } from '../services/data.service';
 import { Skeleton } from 'primeng/skeleton';
 
 @Component({
-  selector: 'app-play',
+  selector: 'app-history',
   standalone: true,
-  imports: [CommonModule, FormsModule, CardModule, ButtonModule, InputTextModule, Skeleton],
-  templateUrl: './play.html',
-  styleUrl: './play.css',
+  imports: [CommonModule, CardModule, ButtonModule, Skeleton],
+  templateUrl: './history.html',
+  styleUrl: './history.css',
 })
-export class Play implements OnInit, AfterViewChecked {
+export class History implements OnInit, AfterViewChecked {
   #data = inject(DataService);
 
   campaigns = signal<any[]>([]);
   selectedCampaign = signal<any | null>(null);
   history = signal<any | null>(null);
 
-  actionInput = '';
-
   @ViewChild('chatContainer') chatContainer!: ElementRef;
   private shouldScroll = false;
 
   ngOnInit() {
-    this.#data.getActiveCampaigns().subscribe({
+    this.#data.getPastCampaigns().subscribe({
       next: (res) => this.campaigns.set(res),
     });
   }
@@ -59,42 +55,8 @@ export class Play implements OnInit, AfterViewChecked {
     });
   }
 
-  sendAction() {
-    if (!this.selectedCampaign() || !this.actionInput.trim()) return;
-
-    const campaignId = this.selectedCampaign().id;
-
-    this.#data.doAction(campaignId, this.actionInput).subscribe(() => {
-      this.#data.getHistory(campaignId).subscribe((res) => {
-        this.history.set(res);
-        this.shouldScroll = true;
-      });
-    });
-
-    this.actionInput = '';
-  }
-
-  useSuggestedAction(action: string) {
-    this.actionInput = action;
-  }
-
   turns() {
     return this.history()?.turns ?? [];
-  }
-
-  currentCombat() {
-    const turns = this.turns();
-    return turns.length > 0 ? turns[turns.length - 1].combat_state : null;
-  }
-
-  currentLife() {
-    const turns = this.turns();
-    return turns.length > 0
-      ? {
-          player: turns[turns.length - 1].character_health,
-          enemy: turns[turns.length - 1].enemy_health,
-        }
-      : null;
   }
 
   turnEffects(turn: any) {

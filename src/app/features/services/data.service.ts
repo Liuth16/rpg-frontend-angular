@@ -65,4 +65,17 @@ export class DataService {
       )
     );
   }
+
+  getPastCampaigns() {
+    return this.#http.get<any[]>(`${this.apiUrl}/personagem`).pipe(
+      map((characters) =>
+        characters.flatMap((c) =>
+          (c.past_campaigns || []).map((camp: any) => ({
+            ...camp,
+            character: { id: c.id, name: c.name }, // keep reference to owner
+          }))
+        )
+      )
+    );
+  }
 }

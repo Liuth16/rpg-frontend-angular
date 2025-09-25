@@ -1,8 +1,10 @@
-<div class="play-layout">
+<main class="play-layout">
   <!-- Left side: Campaigns -->
-  <div class="left-panel">
-    <h2 class="text-lg font-bold mb-4 text-white">Active Campaigns</h2>
-    <p-scrollpanel [style]="{ width: '100%', height: '70vh' }" class="details-background">
+  <section class="left-panel details-background">
+    <header class="panel-header">
+      <h2 class="text-lg font-bold text-white">Active Campaigns</h2>
+    </header>
+    <div class="panel-content overflow-y-auto p-4">
       @for (camp of campaigns(); track camp.id) {
       <p-card class="character-card mb-4">
         <ng-template pTemplate="header">
@@ -26,113 +28,105 @@
         </ng-template>
       </p-card>
       }
-    </p-scrollpanel>
-  </div>
+    </div>
+  </section>
 
   <!-- Right side: Chat + Combat -->
-  <div class="right-panel">
+  <div class="right-panel flex flex-col gap-4">
     <!-- Chat -->
     @if (selectedCampaign()) {
-    <div class="chat-section">
-      <h2 class="text-lg font-bold mb-4 text-white">Chat</h2>
-      <p-card [header]="selectedCampaign().name" class="details-background chat-card">
-        <!-- Scrollable chat log -->
-        <p-scrollpanel [style]="{ width: '100%', height: '50vh' }">
-          <div #chatContainer class="p-2 flex flex-col gap-4">
-            @for (turn of turns(); track turn.id) {
-            <div class="p-2 border-b border-gray-700">
-              <div class="text-blue-400 mb-1"><strong>You:</strong> {{ turn.user_input }}</div>
-              <div class="text-black-300 mb-1"><strong>Narrator:</strong> {{ turn.narrative }}</div>
+    <section class="chat-panel details-background flex flex-col">
+      <header class="panel-header">
+        <h2 class="text-lg font-bold text-white">Chat</h2>
+      </header>
+      <div class="chat-log flex-1 overflow-y-auto p-4 flex flex-col gap-4" #chatContainer>
+        @for (turn of turns(); track turn.id) {
+        <div class="p-2 border-b border-gray-700">
+          <div class="text-blue-400 mb-1"><strong>You:</strong> {{ turn.user_input }}</div>
+          <div class="text-green-300 mb-1"><strong>Narrator:</strong> {{ turn.narrative }}</div>
 
-              <!-- Effects -->
-              @if (turnEffects(turn).length > 0) {
-              <div class="ml-4 mt-1 text-sm text-red-600">
-                @for (eff of turnEffects(turn); track $index) {
-                <div>⚔️ {{ eff }}</div>
-                }
-              </div>
-              }
-
-              <!-- Rewards -->
-              @if (turnRewards(turn).length > 0) {
-              <div class="ml-4 mt-1 text-sm text-yellow-600">
-                @for (reward of turnRewards(turn); track $index) {
-                <div>{{ reward }}</div>
-                }
-              </div>
-              }
-
-              <!-- Suggested Actions -->
-              @if (turn.suggested_actions?.length > 0) {
-              <div class="ml-4 mt-2 flex flex-wrap gap-2">
-                @for (sa of turn.suggested_actions; track $index) {
-                <button pButton type="button" class="blz-button" (click)="useSuggestedAction(sa)">
-                  {{ sa }}
-                </button>
-                }
-              </div>
-              }
-            </div>
+          <!-- Effects -->
+          @if (turnEffects(turn).length > 0) {
+          <div class="ml-4 mt-1 text-sm text-red-300">
+            @for (eff of turnEffects(turn); track $index) {
+            <div>⚔️ {{ eff }}</div>
             }
           </div>
-        </p-scrollpanel>
+          }
 
-        <!-- Input -->
-        <div class="flex gap-2 mt-4">
-          <input
-            pInputText
-            [(ngModel)]="actionInput"
-            placeholder="Type your action..."
-            class="flex-1"
-            (keyup.enter)="sendAction()"
-          />
-          <button pButton label="Send" class="blz-button" (click)="sendAction()"></button>
+          <!-- Rewards -->
+          @if (turnRewards(turn).length > 0) {
+          <div class="ml-4 mt-1 text-sm text-yellow-300">
+            @for (reward of turnRewards(turn); track $index) {
+            <div>{{ reward }}</div>
+            }
+          </div>
+          }
+
+          <!-- Suggested Actions -->
+          @if (turn.suggested_actions?.length > 0) {
+          <div class="ml-4 mt-2 flex flex-wrap gap-2">
+            @for (sa of turn.suggested_actions; track $index) {
+            <button pButton type="button" class="blz-button" (click)="useSuggestedAction(sa)">
+              {{ sa }}
+            </button>
+            }
+          </div>
+          }
         </div>
-      </p-card>
-    </div>
+        }
+      </div>
+      <!-- Input bar (always visible below right side) -->
+      <div class="chat-input flex gap-2 p-4">
+        <input
+          pInputText
+          [(ngModel)]="actionInput"
+          placeholder="Type your action..."
+          class="flex-1"
+          (keyup.enter)="sendAction()"
+        />
+        <button pButton label="Send" class="blz-button" (click)="sendAction()"></button>
+      </div>
+    </section>
     }
 
     <!-- Combat -->
     @if (currentCombat()) {
-    <div class="combat-section mt-6">
-      <h2 class="text-lg font-bold mb-4 text-white">Combat</h2>
-      <p-card header="Battlefield" class="details-background">
-        <div class="flex justify-between gap-6">
-          <!-- Player -->
-          <div>
-            <h3 class="font-semibold mb-2">Player</h3>
-            <p>
-              Health: {{ currentCombat().player.health }} / {{ currentCombat().player.max_health }}
-            </p>
-            <p>Strength: {{ currentCombat().player.attributes.strength }}</p>
-            <p>Dexterity: {{ currentCombat().player.attributes.dexterity }}</p>
-            <p>Intelligence: {{ currentCombat().player.attributes.intelligence }}</p>
-          </div>
-          <!-- Enemy -->
-          <div>
-            <h3 class="font-semibold mb-2">Enemy</h3>
-            <p>
-              Health: {{ currentCombat().enemy.health }} / {{ currentCombat().enemy.max_health }}
-            </p>
-            <p>Strength: {{ currentCombat().enemy.attributes.strength }}</p>
-            <p>Dexterity: {{ currentCombat().enemy.attributes.dexterity }}</p>
-            <p>Intelligence: {{ currentCombat().enemy.attributes.intelligence }}</p>
-          </div>
+    <section class="combat-panel details-background flex flex-col flex-grow">
+      <header class="panel-header">
+        <h2 class="text-lg font-bold text-white">Combat</h2>
+      </header>
+      <div class="p-4 flex justify-between gap-6 flex-grow overflow-y-auto">
+        <!-- Player -->
+        <div>
+          <h3 class="font-semibold mb-2">Player</h3>
+          <p>
+            Health: {{ currentCombat().player.health }} / {{ currentCombat().player.max_health }}
+          </p>
+          <p>Strength: {{ currentCombat().player.attributes.strength }}</p>
+          <p>Dexterity: {{ currentCombat().player.attributes.dexterity }}</p>
+          <p>Intelligence: {{ currentCombat().player.attributes.intelligence }}</p>
         </div>
-
-        <!-- Effects -->
-        @if (currentCombat()?.effects?.length > 0) {
-        <div class="mt-4">
-          <h4 class="font-medium">Effects</h4>
-          <ul class="list-disc list-inside text-sm">
-            @for (eff of currentCombat().effects; track $index) {
-            <li>{{ eff.type }} → {{ eff.target }} ({{ eff.value ?? 'N/A' }})</li>
-            }
-          </ul>
+        <!-- Enemy -->
+        <div>
+          <h3 class="font-semibold mb-2">Enemy</h3>
+          <p>Health: {{ currentCombat().enemy.health }} / {{ currentCombat().enemy.max_health }}</p>
+          <p>Strength: {{ currentCombat().enemy.attributes.strength }}</p>
+          <p>Dexterity: {{ currentCombat().enemy.attributes.dexterity }}</p>
+          <p>Intelligence: {{ currentCombat().enemy.attributes.intelligence }}</p>
         </div>
-        }
-      </p-card>
-    </div>
+      </div>
+      @if (currentCombat()?.effects?.length > 0) {
+      <div class="p-4">
+        <h4 class="font-medium">Effects</h4>
+        <ul class="list-disc list-inside text-sm">
+          @for (eff of currentCombat().effects; track $index) {
+          <li>{{ eff.type }} → {{ eff.target }} ({{ eff.value ?? 'N/A' }})</li>
+          }
+        </ul>
+      </div>
+      }
+    </section>
     }
   </div>
-</div>
+</main>

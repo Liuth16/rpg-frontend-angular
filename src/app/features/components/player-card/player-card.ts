@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-player-card',
   imports: [],
   templateUrl: './player-card.html',
-  styleUrl: './player-card.css'
+  styleUrl: './player-card.css',
 })
-export class PlayerCard {
-
-}
+export class PlayerCard {}

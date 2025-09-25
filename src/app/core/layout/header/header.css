@@ -53,3 +53,9 @@
   --p-menubar-mobile-button-hover-background: #ffffff0d;
   --p-menubar-mobile-button-border-radius: 4px;
 }
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
