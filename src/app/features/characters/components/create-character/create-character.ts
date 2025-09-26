@@ -6,6 +6,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DataService } from '../../../services/data.service';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-create-character',
@@ -22,6 +23,7 @@ import { DataService } from '../../../services/data.service';
   styleUrls: ['./create-character.css'],
 })
 export class CreateCharacter {
+  constructor(private ref: DynamicDialogRef) {}
   #fb = inject(FormBuilder);
   #data = inject(DataService);
 

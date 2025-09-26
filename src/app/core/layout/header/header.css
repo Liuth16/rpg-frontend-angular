@@ -52,6 +52,7 @@
   --p-menubar-mobile-button-hover-color: #ffcc00;
   --p-menubar-mobile-button-hover-background: #ffffff0d;
   --p-menubar-mobile-button-border-radius: 4px;
+  border-radius: 0px;
 }
 
 .nav {

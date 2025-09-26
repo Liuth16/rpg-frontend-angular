@@ -3,6 +3,13 @@
   padding: 1.5rem;
 }
 
+:host ::ng-deep .p-inputnumber-input {
+  width: 100% !important; /* actual input element */
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
 /* Wrapper centers the card */
 .create-wrapper {
   display: flex;
@@ -15,6 +22,8 @@
 .create-card {
   width: 100%;
   max-width: 600px; /* doesn’t stretch across screen */
+  height: 70vh;
+  overflow: auto;
 }
 
 /* Attributes layout */
@@ -22,6 +31,10 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
+
+.attr-field {
+  min-width: 0; /* allows children to shrink in grid */
 }
 
 /* Mobile responsiveness */

@@ -21,7 +21,7 @@ import { DataService } from '../../services/data.service';
   templateUrl: './player-card.html',
   styleUrl: './player-card.css',
 })
-export class CreateCharacter {
+class CreateCharacter {
   #fb = inject(FormBuilder);
   #data = inject(DataService);
 

@@ -14,6 +14,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DataService } from '../services/data.service';
 import { Skeleton } from 'primeng/skeleton';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-play',
@@ -24,6 +25,7 @@ import { Skeleton } from 'primeng/skeleton';
 })
 export class Play implements OnInit, AfterViewChecked {
   #data = inject(DataService);
+  #route = inject(ActivatedRoute);
 
   campaigns = signal<any[]>([]);
   selectedCampaign = signal<any | null>(null);
@@ -36,7 +38,13 @@ export class Play implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.#data.getActiveCampaigns().subscribe({
-      next: (res) => this.campaigns.set(res),
+      next: (res) => {
+        this.campaigns.set(res);
+        const campaignId = this.#route.snapshot.queryParamMap.get('campaignId');
+        if (campaignId) {
+          this.selectCampaign(campaignId);
+        }
+      },
     });
   }
 

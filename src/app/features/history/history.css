@@ -20,7 +20,7 @@
   background-blend-mode: overlay, multiply, normal, normal;
   padding: 1.5rem;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .play-layout {

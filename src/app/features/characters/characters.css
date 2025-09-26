@@ -60,6 +60,22 @@
   min-height: 0;
 }
 
+/* Remove the default white background */
+.p-dialog.custom-dialog {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Remove extra padding so your component styling takes over */
+.p-dialog .p-dialog-content {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.p-inputnumber-input {
+  width: 100%;
+}
+
 /* Mobile view: stack vertically */
 @media (max-width: 768px) {
   .characters-layout {

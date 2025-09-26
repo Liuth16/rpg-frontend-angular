@@ -1,0 +1,8 @@
+.login-background {
+  background: var(--login-background) center/220% 220% no-repeat;
+  background-blend-mode: normal;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.66);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
