@@ -43,6 +43,15 @@ export class DataService {
     return this.#http.get(`${this.apiUrl}/campanha/${campaignId}`);
   }
 
+  createCampaign(payload: {
+    character_id: string; // 24-char id
+    name: string;
+    description: string;
+    mode?: 'free' | 'standard'; // optional; we'll pass 'free'
+  }) {
+    return this.#http.post(`${this.apiUrl}/campanha`, null, { params: payload });
+  }
+
   getHistory(campaignId: string) {
     return this.#http.get<any>(`${this.apiUrl}/historico/${campaignId}`);
   }

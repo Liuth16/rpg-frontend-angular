@@ -7,6 +7,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateCharacter } from './components/create-character/create-character';
 import { Router } from '@angular/router';
+import { CreateCampaign } from '../components/create-campaign/create-campaign';
 
 @Component({
   selector: 'app-characters',
@@ -55,6 +56,29 @@ export class Characters {
       if (result) {
         // refresh list or show a toast
         console.log('Character created:', result);
+      }
+    });
+  }
+
+  openCreateCampaignDialog(charId: string) {
+    this.dialogRef = this.#dialogService.open(CreateCampaign, {
+      closable: true,
+      showHeader: true,
+      modal: true,
+      data: { charId },
+      style: { background: 'transparent', border: 'none', boxShadow: 'none' },
+      width: '40vw',
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '95vw',
+      },
+    });
+
+    this.dialogRef.onClose.subscribe((result) => {
+      if (result) {
+        console.log('Campaign created:', result);
+        // Optional: refresh character details so it now shows the active campaign
+        this.viewCharacter(charId);
       }
     });
   }

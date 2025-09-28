@@ -25,7 +25,7 @@
         <p><strong>Class:</strong> {{ char.char_class }}</p>
         <p><strong>Level:</strong> {{ char.level }}</p>
         <ng-template pTemplate="footer">
-          <div class="flex justify-center align-center">
+          <div class="flex justify-center align-center gap-2">
             <button
               pButton
               type="button"
@@ -33,6 +33,24 @@
               class="cursor-pointer w-32 blz-button"
               (click)="viewCharacter(char.id)"
             ></button>
+            @if (char.current_campaign) {
+            <button
+              pButton
+              type="button"
+              label="Play"
+              class="cursor-pointer w-24 blz-button"
+              (click)="goToPlay(char.current_campaign.id)"
+            ></button>
+            }@else {
+            <button
+              pButton
+              type="button"
+              label="Create Campaign"
+              icon="pi pi-plus"
+              class="cursor-pointer w-40 blz-button"
+              (click)="openCreateCampaignDialog(char.id)"
+            ></button>
+            }
           </div>
         </ng-template>
       </p-card>
