@@ -62,6 +62,10 @@ export class DataService {
     });
   }
 
+  endCampaign(campaignId: string) {
+    return this.#http.delete(`${this.apiUrl}/campanha/${campaignId}`);
+  }
+
   getActiveCampaigns() {
     return this.#http.get<any[]>(`${this.apiUrl}/personagem`).pipe(
       map((characters) =>

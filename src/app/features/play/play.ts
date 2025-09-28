@@ -15,17 +15,28 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DataService } from '../services/data.service';
 import { Skeleton } from 'primeng/skeleton';
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-play',
   standalone: true,
-  imports: [CommonModule, FormsModule, CardModule, ButtonModule, InputTextModule, Skeleton],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CardModule,
+    ButtonModule,
+    InputTextModule,
+    Skeleton,
+    ConfirmDialog,
+  ],
   templateUrl: './play.html',
   styleUrl: './play.css',
 })
 export class Play implements OnInit, AfterViewChecked {
   #data = inject(DataService);
   #route = inject(ActivatedRoute);
+  #confirmationService = inject(ConfirmationService);
 
   campaigns = signal<any[]>([]);
   selectedCampaign = signal<any | null>(null);
@@ -64,6 +75,36 @@ export class Play implements OnInit, AfterViewChecked {
         mode: res.mode,
       });
       this.shouldScroll = true;
+    });
+  }
+
+  confirmEndCampaign(campaignId: string) {
+    this.#confirmationService.confirm({
+      message: 'Are you sure you want to end this campaign?',
+      header: 'Confirm End Campaign',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Yes',
+      rejectLabel: 'No',
+      accept: () => this.endCampaign(campaignId),
+    });
+  }
+
+  endCampaign(campaignId: string) {
+    this.#data.endCampaign(campaignId).subscribe({
+      next: () => {
+        console.log(`Campaign ${campaignId} ended.`);
+        // Remove it from the list
+        this.campaigns.set(this.campaigns().filter((c) => c.id !== campaignId));
+
+        // Clear selected if it was the one ended
+        if (this.selectedCampaign()?.id === campaignId) {
+          this.selectedCampaign.set(null);
+          this.history.set(null);
+        }
+      },
+      error: (err) => {
+        console.error('Failed to end campaign:', err);
+      },
     });
   }
 

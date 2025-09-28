@@ -12,6 +12,7 @@ import { routes } from './app.routes';
 import { MessageService } from 'primeng/api';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/auth/auth-interceptor';
+import { ConfirmationService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,6 +32,7 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     MessageService,
+    ConfirmationService,
     provideHttpClient(withInterceptors([authInterceptor])),
   ],
 };

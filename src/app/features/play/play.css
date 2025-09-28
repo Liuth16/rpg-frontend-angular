@@ -23,6 +23,14 @@
   overflow: auto;
 }
 
+::ng-deep .p-confirmdialog {
+  background: var(--background-details-image) center/220% 220% no-repeat;
+  background-blend-mode: normal;
+  border: 15px solid transparent;
+  border-image: var(--custom-border) 30 stretch;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.66);
+}
+
 /* Layout */
 .play-layout {
   display: flex;
