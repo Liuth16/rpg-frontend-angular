@@ -12,16 +12,19 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DataService } from '../services/data.service';
 import { Skeleton } from 'primeng/skeleton';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-history',
   standalone: true,
-  imports: [CommonModule, CardModule, ButtonModule, Skeleton],
+  imports: [CommonModule, CardModule, ButtonModule, Skeleton, ConfirmDialog],
   templateUrl: './history.html',
   styleUrl: './history.css',
 })
 export class History implements OnInit, AfterViewChecked {
   #data = inject(DataService);
+  #confirmationService = inject(ConfirmationService);
 
   campaigns = signal<any[]>([]);
   selectedCampaign = signal<any | null>(null);
@@ -52,6 +55,29 @@ export class History implements OnInit, AfterViewChecked {
         mode: res.mode,
       });
       this.shouldScroll = true;
+    });
+  }
+
+  confirmDelete(campaignId: string) {
+    this.#confirmationService.confirm({
+      header: 'Confirm Deletion',
+      message: 'Are you sure you want to delete this campaign history? This cannot be undone.',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Yes, delete',
+      rejectLabel: 'Cancel',
+      acceptButtonStyleClass: 'blz-button',
+      rejectButtonStyleClass: 'blz-button',
+      accept: () => {
+        this.#data.deleteCampaignHistory(campaignId).subscribe({
+          next: () => {
+            this.campaigns.update((prev) => prev.filter((c) => c.id !== campaignId));
+            if (this.selectedCampaign()?.campaign_id === campaignId) {
+              this.selectedCampaign.set(null);
+            }
+          },
+          error: (err) => console.error('Failed to delete campaign history:', err),
+        });
+      },
     });
   }
 

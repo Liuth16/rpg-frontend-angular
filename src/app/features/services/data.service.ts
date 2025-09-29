@@ -91,4 +91,8 @@ export class DataService {
       )
     );
   }
+
+  deleteCampaignHistory(campaignId: string) {
+    return this.#http.delete(`${this.apiUrl}/historico/${campaignId}`);
+  }
 }

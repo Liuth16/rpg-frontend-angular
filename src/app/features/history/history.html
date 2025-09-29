@@ -16,13 +16,20 @@
         <p><strong>Mode:</strong> {{ camp.mode }}</p>
         <p><strong>Character:</strong> {{ camp.character.name }}</p>
         <ng-template pTemplate="footer">
-          <div class="flex justify-center align-center">
+          <div class="flex justify-center align-center gap-2">
             <button
               pButton
               type="button"
               label="View"
               class="cursor-pointer w-32 blz-button"
               (click)="selectCampaign(camp.id)"
+            ></button>
+            <button
+              pButton
+              type="button"
+              label="Delete Campaign"
+              class="cursor-pointer blz-button"
+              (click)="confirmDelete(camp.id)"
             ></button>
           </div>
         </ng-template>
@@ -69,3 +76,5 @@
     }
   </div>
 </main>
+
+<p-confirmDialog></p-confirmDialog>
