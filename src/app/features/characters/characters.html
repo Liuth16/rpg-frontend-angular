@@ -71,6 +71,13 @@
     <section class="character-details details-background">
       <header class="panel-header">
         <h2 class="text-lg font-bold mb-4">Details</h2>
+        <button
+          pButton
+          type="button"
+          label="Delete Character"
+          class="cursor-pointer blz-button"
+          (click)="confirmDeleteCharacter(selectedCharacter().id)"
+        ></button>
       </header>
       <div class="panel-content p-4 overflow-y-auto">
         <p><strong>Race:</strong> {{ selectedCharacter().race }}</p>
@@ -89,13 +96,6 @@
           {{ selectedCharacter().current_campaign.campaign_name }} (Game mode:
           {{ selectedCharacter().current_campaign.mode }})
         </p>
-        <button
-          pButton
-          type="button"
-          label="Play"
-          class="cursor-pointer w-24 blz-button"
-          (click)="goToPlay(selectedCharacter().current_campaign.id)"
-        ></button>
         } @else {
         <p>No active campaign.</p>
         }
@@ -117,3 +117,4 @@
 </main>
 
 <p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>

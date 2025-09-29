@@ -35,6 +35,10 @@ export class DataService {
     return this.#http.post(`${this.apiUrl}/personagem`, null, { params: payload });
   }
 
+  deleteCharacter(charId: string) {
+    return this.#http.delete<{ message: string }>(`${this.apiUrl}/personagem/${charId}`);
+  }
+
   getCampaigns() {
     return this.#http.get(`${this.apiUrl}/campanha`);
   }

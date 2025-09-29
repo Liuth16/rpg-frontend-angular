@@ -9,13 +9,22 @@ import { CreateCharacter } from './components/create-character/create-character'
 import { Router } from '@angular/router';
 import { CreateCampaign } from '../components/create-campaign/create-campaign';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-characters',
-  imports: [CommonModule, CardModule, ButtonModule, SkeletonModule, ToastModule, AvatarModule],
-  providers: [DialogService, MessageService],
+  imports: [
+    CommonModule,
+    CardModule,
+    ButtonModule,
+    SkeletonModule,
+    ToastModule,
+    AvatarModule,
+    ConfirmDialog,
+  ],
+  providers: [DialogService, MessageService, ConfirmationService],
   templateUrl: './characters.html',
   styleUrl: './characters.css',
 })
@@ -23,6 +32,7 @@ export class Characters {
   #data = inject(DataService);
   #dialogService = inject(DialogService);
   #messageService = inject(MessageService);
+  #confirmationService = inject(ConfirmationService);
   dialogRef: DynamicDialogRef | undefined;
   #router = inject(Router);
 
@@ -101,6 +111,47 @@ export class Characters {
   goToPlay(campaignId: string) {
     this.#router.navigate(['/play'], {
       queryParams: { campaignId },
+    });
+  }
+
+  // 🔥 Confirm + delete flow for characters
+  confirmDeleteCharacter(charId: string) {
+    this.#confirmationService.confirm({
+      message: 'Are you sure you want to delete this character?',
+      header: 'Confirm Delete Character',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Yes',
+      rejectLabel: 'No',
+      accept: () => this.deleteCharacter(charId),
+    });
+  }
+
+  private deleteCharacter(charId: string) {
+    this.#data.deleteCharacter(charId).subscribe({
+      next: () => {
+        console.log(`Character ${charId} deleted.`);
+        this.characters.set(this.characters().filter((c) => c.id !== charId));
+
+        if (this.selectedCharacter()?.id === charId) {
+          this.selectedCharacter.set(null);
+        }
+
+        this.#messageService.add({
+          severity: 'success',
+          summary: 'Character Deleted',
+          detail: 'Character removed successfully.',
+          life: 2000,
+        });
+      },
+      error: (err) => {
+        console.error('Failed to delete character:', err);
+        this.#messageService.add({
+          severity: 'error',
+          summary: 'Delete Failed',
+          detail: 'Could not delete the character.',
+          life: 3000,
+        });
+      },
     });
   }
 }
