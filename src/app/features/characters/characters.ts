@@ -8,17 +8,20 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateCharacter } from './components/create-character/create-character';
 import { Router } from '@angular/router';
 import { CreateCampaign } from '../components/create-campaign/create-campaign';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-characters',
-  imports: [CommonModule, CardModule, ButtonModule, SkeletonModule],
-  providers: [DialogService],
+  imports: [CommonModule, CardModule, ButtonModule, SkeletonModule, ToastModule],
+  providers: [DialogService, MessageService],
   templateUrl: './characters.html',
   styleUrl: './characters.css',
 })
 export class Characters {
   #data = inject(DataService);
   #dialogService = inject(DialogService);
+  #messageService = inject(MessageService);
   dialogRef: DynamicDialogRef | undefined;
   #router = inject(Router);
 
@@ -26,6 +29,10 @@ export class Characters {
   selectedCharacter = signal<any | null>(null);
 
   ngOnInit() {
+    this.refreshCharacters();
+  }
+
+  refreshCharacters() {
     this.#data.getCharacters().subscribe({
       next: (res) => this.characters.set(res),
     });
@@ -35,7 +42,6 @@ export class Characters {
     this.#data.getCharacter(charId).subscribe({
       next: (res) => this.selectedCharacter.set(res),
     });
-    console.log(this.characters());
   }
 
   openCreateDialog() {
@@ -51,11 +57,15 @@ export class Characters {
       },
     });
 
-    // optional: subscribe to close
     this.dialogRef.onClose.subscribe((result) => {
       if (result) {
-        // refresh list or show a toast
-        console.log('Character created:', result);
+        this.refreshCharacters();
+        this.#messageService.add({
+          severity: 'success',
+          summary: 'Character Created',
+          detail: `${result.name} was created successfully`,
+          life: 2000,
+        });
       }
     });
   }
@@ -76,9 +86,13 @@ export class Characters {
 
     this.dialogRef.onClose.subscribe((result) => {
       if (result) {
-        console.log('Campaign created:', result);
-        // Optional: refresh character details so it now shows the active campaign
         this.viewCharacter(charId);
+        this.#messageService.add({
+          severity: 'success',
+          summary: 'Campaign Created',
+          detail: `${result.name} started successfully`,
+          life: 2000,
+        });
       }
     });
   }

@@ -44,13 +44,11 @@ export class CreateCharacter {
     if (this.charForm.invalid) return;
 
     this.#data.createCharacter(this.charForm.value).subscribe({
-      next: () => {
-        alert('Character created successfully!');
-        this.charForm.reset();
+      next: (res) => {
+        this.ref.close(res);
       },
       error: (err) => {
-        console.error(err);
-        alert('Failed to create character.');
+        console.error('Failed to create character:', err);
       },
     });
   }
