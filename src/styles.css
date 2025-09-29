@@ -7,6 +7,27 @@
   --buttontroll-background-image: url('./assets/button-texture.gif');
   --custom-border: url('./assets/custom-border.webp');
   --login-background: url('./assets/login-background.avif');
+  --mage-avatar: url('./assets/mage.webp');
+  --archer-avatar: url('./assets/archer.jpg');
+  --warrior-avatar: url('./assets/warrior.jpg');
+}
+
+p-avatar.mage {
+  background-image: var(--mage-avatar);
+  background-size: cover;
+  background-position: center;
+}
+
+p-avatar.archer {
+  background-image: var(--archer-avatar);
+  background-size: cover;
+  background-position: center;
+}
+
+p-avatar.warrior {
+  background-image: var(--warrior-avatar);
+  background-size: cover;
+  background-position: center;
 }
 
 .blz-button {

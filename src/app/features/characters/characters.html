@@ -17,7 +17,12 @@
       <p-card class="character-card mb-4">
         <ng-template pTemplate="header">
           <div class="flex items-center p-4 gap-3">
-            <p-skeleton shape="circle" size="4rem" />
+            <p-avatar
+              [ngClass]="char.char_class.toLowerCase()"
+              shape="circle"
+              size="xlarge"
+            ></p-avatar>
+
             <div class="text-xl font-semibold">{{ char.name }}</div>
           </div>
         </ng-template>

@@ -10,10 +10,11 @@ import { Router } from '@angular/router';
 import { CreateCampaign } from '../components/create-campaign/create-campaign';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
   selector: 'app-characters',
-  imports: [CommonModule, CardModule, ButtonModule, SkeletonModule, ToastModule],
+  imports: [CommonModule, CardModule, ButtonModule, SkeletonModule, ToastModule, AvatarModule],
   providers: [DialogService, MessageService],
   templateUrl: './characters.html',
   styleUrl: './characters.css',
