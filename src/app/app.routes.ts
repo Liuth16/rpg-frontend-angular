@@ -8,8 +8,10 @@ import { authGuard } from './core/auth/auth.guard';
 import { Play } from './features/play/play';
 import { CreateCharacter } from './features/characters/components/create-character/create-character';
 import { CreateCampaign } from './features/components/create-campaign/create-campaign';
+import { Home } from './features/home/home';
 
 export const routes: Routes = [
+  { path: '', component: Home, title: 'Home' },
   {
     path: 'login',
     component: Login,

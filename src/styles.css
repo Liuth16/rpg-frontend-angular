@@ -7,6 +7,8 @@
   --buttontroll-background-image: url('./assets/button-texture.gif');
   --custom-border: url('./assets/custom-border.webp');
   --login-background: url('./assets/login-background.avif');
+  --logo: url('./assets/logo.png');
+  --register-background: url('./assets/register-background.png');
   --mage-avatar: url('./assets/mage.webp');
   --archer-avatar: url('./assets/archer.jpg');
   --warrior-avatar: url('./assets/warrior.jpg');

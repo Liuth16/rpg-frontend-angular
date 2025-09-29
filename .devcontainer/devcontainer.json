@@ -2,18 +2,14 @@
   "name": "Node.js & TypeScript",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
 
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [4200],
   "appPort": [4200],
   "runArgs": ["--network=devcontainer-network", "--name=frontend"],
 
-  // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "npm install -g @angular/cli",
 
-  // Configure tool-specific properties.
   "customizations": {
     "vscode": {
-      // Add the IDs of extensions you want installed when the container is created.
       "extensions": ["Angular.ng-template", "esbenp.prettier-vscode"]
     }
   }
