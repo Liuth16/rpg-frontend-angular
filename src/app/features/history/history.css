@@ -23,6 +23,13 @@
   overflow: auto;
 }
 
+::ng-deep .p-dialog {
+  border: 15px solid transparent;
+  border-image: var(--custom-border) 30 stretch;
+  background: var(--background-details-image) center/220% 220% no-repeat;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.66);
+}
+
 .play-layout {
   display: flex;
   gap: 1.5rem;

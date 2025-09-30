@@ -26,10 +26,4 @@ export const routes: Routes = [
   { path: 'characters', component: Characters, title: 'Characters', canActivate: [authGuard] },
   { path: 'play', component: Play, title: 'Play', canActivate: [authGuard] },
   { path: 'history', component: History, title: 'History', canActivate: [authGuard] },
-  {
-    path: 'campaigns',
-    component: CreateCampaign,
-    title: 'Create Campaign',
-    canActivate: [authGuard],
-  },
 ];
