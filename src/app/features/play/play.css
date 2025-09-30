@@ -104,10 +104,22 @@
 }
 
 /* Combat */
-.combat-panel {
-  flex: 2;
-  min-height: 0;
-  overflow: hidden;
+
+/* Crossed swords divider */
+.swords-divider {
+  width: 84px;
+  min-width: 64px;
+  aspect-ratio: 1 / 1;
+  background: var(--swords-icon) center / contain no-repeat;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+}
+
+/* Responsive: stack vertically on narrow screens and shrink swords */
+@media (max-width: 768px) {
+  .swords-divider {
+    width: 56px;
+    min-width: 48px;
+  }
 }
 
 /* Mobile: stack panels vertically */
@@ -134,7 +146,12 @@
 
   /* Combat panel follows below */
   .combat-panel {
-    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
   }
 
   /* Input bar pinned and easy to tap */

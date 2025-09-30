@@ -105,36 +105,114 @@
       <header class="panel-header">
         <h2 class="text-lg font-bold">Combat</h2>
       </header>
-      <div class="p-4 flex justify-between gap-6 flex-grow overflow-y-auto">
-        <!-- Player -->
-        <div>
-          <h3 class="font-semibold mb-2">Player</h3>
-          <p>
-            Health: {{ currentCombat().player.health }} / {{ currentCombat().player.max_health }}
-          </p>
-          <p>Strength: {{ currentCombat().player.attributes.strength }}</p>
-          <p>Dexterity: {{ currentCombat().player.attributes.dexterity }}</p>
-          <p>Intelligence: {{ currentCombat().player.attributes.intelligence }}</p>
+
+      <!-- Duel layout -->
+      <div class="p-4 flex flex-col gap-4 flex-grow overflow-y-auto">
+        <div class="flex items-center justify-between gap-6 combat-panel">
+          <!-- Player card -->
+          <div class="flex-1 min-w-[120px] p-4 rounded-md">
+            <h3 class="font-semibold mb-2 text-emerald-400">Player</h3>
+
+            <!-- Health -->
+            <div class="text-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-medium">Health</span>
+                <span>
+                  {{ currentCombat().player.health }} / {{ currentCombat().player.max_health }}
+                </span>
+              </div>
+              <div class="h-2 bg-black/40 rounded mt-1 overflow-hidden">
+                <div
+                  class="h-full bg-emerald-500"
+                  [style.width.%]="
+                    (currentCombat().player.health / currentCombat().player.max_health) * 100
+                  "
+                ></div>
+              </div>
+            </div>
+
+            <!-- Attributes -->
+            <div class="grid grid-cols-4 gap-2 mt-3 text-xs">
+              <div class="rounded bg-white/5 p-2 text-center">
+                <div class="font-semibold">STR</div>
+                <div>{{ currentCombat().player.attributes.strength }}</div>
+              </div>
+              <div class="rounded bg-white/5 p-2 text-center">
+                <div class="font-semibold">DEX</div>
+                <div>{{ currentCombat().player.attributes.dexterity }}</div>
+              </div>
+              <div class="rounded bg-white/5 p-2 text-center">
+                <div class="font-semibold">INT</div>
+                <div>{{ currentCombat().player.attributes.intelligence }}</div>
+              </div>
+              <div class="rounded bg-white/5 p-2 text-center">
+                <div class="font-semibold">CHA</div>
+                <div>{{ currentCombat().enemy.attributes.charisma }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Swords divider -->
+          <div class="swords-divider mx-2"></div>
+
+          <!-- Enemy card -->
+          <div class="flex-1 min-w-[120px] p-4 rounded-md">
+            <h3 class="font-semibold mb-2 text-rose-400">Enemy</h3>
+
+            <!-- Health -->
+            <div class="text-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-medium">Health</span>
+                <span>
+                  {{ currentCombat().enemy.health }} / {{ currentCombat().enemy.max_health }}
+                </span>
+              </div>
+              <div class="h-2 bg-black/40 rounded mt-1 overflow-hidden">
+                <div
+                  class="h-full bg-rose-500"
+                  [style.width.%]="
+                    (currentCombat().enemy.health / currentCombat().enemy.max_health) * 100
+                  "
+                ></div>
+              </div>
+            </div>
+
+            <!-- Attributes -->
+            <div class="grid grid-cols-4 gap-2 mt-3 text-xs">
+              <div class="rounded bg-white/5 p-2 text-center">
+                <div class="font-semibold">STR</div>
+                <div>{{ currentCombat().enemy.attributes.strength }}</div>
+              </div>
+              <div class="rounded bg-white/5 p-2 text-center">
+                <div class="font-semibold">DEX</div>
+                <div>{{ currentCombat().enemy.attributes.dexterity }}</div>
+              </div>
+              <div class="rounded bg-white/5 p-2 text-center">
+                <div class="font-semibold">INT</div>
+                <div>{{ currentCombat().enemy.attributes.intelligence }}</div>
+              </div>
+              <div class="rounded bg-white/5 p-2 text-center">
+                <div class="font-semibold">CHA</div>
+                <div>{{ currentCombat().enemy.attributes.charisma }}</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- Enemy -->
-        <div>
-          <h3 class="font-semibold mb-2">Enemy</h3>
-          <p>Health: {{ currentCombat().enemy.health }} / {{ currentCombat().enemy.max_health }}</p>
-          <p>Strength: {{ currentCombat().enemy.attributes.strength }}</p>
-          <p>Dexterity: {{ currentCombat().enemy.attributes.dexterity }}</p>
-          <p>Intelligence: {{ currentCombat().enemy.attributes.intelligence }}</p>
+
+        <!-- Effects as chips (optional but tidy) -->
+        @if (currentCombat()?.effects?.length > 0) {
+        <div class="mt-2">
+          <h4 class="font-medium mb-2">Effects</h4>
+          <div class="flex flex-wrap gap-2">
+            @for (eff of currentCombat().effects; track $index) {
+            <span class="px-2 py-1 text-xs rounded bg-white/5 border border-white/10">
+              {{ eff.type }} → {{ eff.target }} {{ eff.value ? '(' + eff.value + ')' : '' }}
+            </span>
+            }
+          </div>
         </div>
+        }
       </div>
-      @if (currentCombat()?.effects?.length > 0) {
-      <div class="p-4">
-        <h4 class="font-medium">Effects</h4>
-        <ul class="list-disc list-inside text-sm">
-          @for (eff of currentCombat().effects; track $index) {
-          <li>{{ eff.type }} → {{ eff.target }} ({{ eff.value ?? 'N/A' }})</li>
-          }
-        </ul>
-      </div>
-      }
     </section>
     }
   </div>
