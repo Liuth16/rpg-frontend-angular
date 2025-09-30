@@ -40,28 +40,24 @@
       </div>
 
       <!-- Attributes -->
+      <!-- Attributes -->
       <h3 class="font-semibold mt-4">Attributes</h3>
       <div class="attr-grid">
         <div class="flex flex-col gap-2">
           <label>Strength</label>
-          <p-inputNumber formControlName="strength" [min]="0" [max]="20"></p-inputNumber>
+          <p-inputNumber formControlName="strength" [disabled]="true"></p-inputNumber>
         </div>
         <div class="flex flex-col gap-2">
           <label>Dexterity</label>
-          <p-inputNumber formControlName="dexterity" [min]="0" [max]="20"></p-inputNumber>
+          <p-inputNumber formControlName="dexterity" [disabled]="true"></p-inputNumber>
         </div>
         <div class="flex flex-col gap-2">
           <label>Intelligence</label>
-          <p-inputNumber formControlName="intelligence" [min]="0" [max]="20"></p-inputNumber>
+          <p-inputNumber formControlName="intelligence" [disabled]="true"></p-inputNumber>
         </div>
         <div class="flex flex-col gap-2">
           <label>Charisma</label>
-          <p-inputNumber
-            formControlName="charisma"
-            [min]="0"
-            [max]="20"
-            [style]="{ width: '100%' }"
-          ></p-inputNumber>
+          <p-inputNumber formControlName="charisma" [disabled]="true"></p-inputNumber>
         </div>
       </div>
 
