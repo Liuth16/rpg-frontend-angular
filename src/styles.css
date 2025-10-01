@@ -15,6 +15,11 @@
   --warrior-avatar: url('./assets/warrior.jpg');
 }
 
+@font-face {
+  font-family: 'customfont'; /* Choose a name for your font */
+  src: url('./assets/fonts/Mikadan\ Regular.woff2') format('woff2');
+}
+
 p-avatar.mage {
   background-image: var(--mage-avatar);
   background-size: cover;

@@ -97,6 +97,7 @@ export class Characters {
 
     this.dialogRef.onClose.subscribe((result) => {
       if (result) {
+        this.refreshCharacters();
         this.viewCharacter(charId);
         this.#messageService.add({
           severity: 'success',

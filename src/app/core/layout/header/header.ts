@@ -34,10 +34,6 @@ export class Header {
           routerLink: '/characters',
         },
         {
-          label: 'Campaigns',
-          routerLink: '/campaigns',
-        },
-        {
           label: 'History',
           routerLink: '/history',
         },

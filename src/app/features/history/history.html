@@ -52,7 +52,7 @@
         @for (turn of turns(); track turn.id) {
         <div class="p-2 border-b border-gray-700">
           <div class="text-blue-600 mb-1"><strong>You:</strong> {{ turn.user_input }}</div>
-          <div class="text-green-600 mb-1"><strong>Narrator:</strong> {{ turn.narrative }}</div>
+          <div class="text-green-600 mb-1"><strong>Narrative:</strong> {{ turn.narrative }}</div>
 
           <!-- Effects -->
           @if (turnEffects(turn).length > 0) {
