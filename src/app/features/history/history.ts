@@ -11,14 +11,13 @@ import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DataService } from '../services/data.service';
-import { Skeleton } from 'primeng/skeleton';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-history',
   standalone: true,
-  imports: [CommonModule, CardModule, ButtonModule, Skeleton, ConfirmDialog],
+  imports: [CommonModule, CardModule, ButtonModule, ConfirmDialog],
   templateUrl: './history.html',
   styleUrl: './history.css',
 })

@@ -20,6 +20,10 @@
   src: url('./assets/fonts/Mikadan\ Regular.woff2') format('woff2');
 }
 
+body {
+  font-family: 'customfont', sans-serif;
+}
+
 p-avatar.mage {
   background-image: var(--mage-avatar);
   background-size: cover;

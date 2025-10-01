@@ -69,8 +69,8 @@
   <div class="character-details">
     @if (selectedCharacter()) {
     <section class="character-details details-background">
-      <header class="panel-header">
-        <h2 class="text-lg font-bold mb-4">Details</h2>
+      <header class="panel-header flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Character Details</h2>
         <button
           pButton
           type="button"
@@ -79,37 +79,76 @@
           (click)="confirmDeleteCharacter(selectedCharacter().id)"
         ></button>
       </header>
-      <div class="panel-content p-4 overflow-y-auto">
-        <p><strong>Race:</strong> {{ selectedCharacter().race }}</p>
-        <p><strong>Class:</strong> {{ selectedCharacter().char_class }}</p>
-        <p><strong>Description:</strong> {{ selectedCharacter().description }}</p>
-        <p><strong>Level:</strong> {{ selectedCharacter().level }}</p>
-        <p>
-          <strong>Health:</strong> {{ selectedCharacter().current_health }} /
-          {{ selectedCharacter().max_health }}
-        </p>
-        <p><strong>Skill Points:</strong> {{ selectedCharacter().skill_points }}</p>
 
-        <h3 class="mt-4 font-semibold">Current Campaign</h3>
-        @if (selectedCharacter().current_campaign) {
-        <p>
-          {{ selectedCharacter().current_campaign.campaign_name }} (Game mode:
-          {{ selectedCharacter().current_campaign.mode }})
-        </p>
-        } @else {
-        <p>No active campaign.</p>
-        }
+      <!-- Two-column layout -->
+      <div class="panel-content p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Left column: General Info -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-semibold border-b border-gray-500 pb-1">General Info</h3>
+          <p><span class="font-semibold">Race:</span> {{ selectedCharacter().race }}</p>
+          <p><span class="font-semibold">Class:</span> {{ selectedCharacter().char_class }}</p>
+          <p>
+            <span class="font-semibold">Description:</span> {{ selectedCharacter().description }}
+          </p>
+          <p><span class="font-semibold">Level:</span> {{ selectedCharacter().level }}</p>
+          <p>
+            <span class="font-semibold">Health:</span>
+            {{ selectedCharacter().current_health }} / {{ selectedCharacter().max_health }}
+          </p>
+          <p>
+            <span class="font-semibold">Skill Points:</span> {{ selectedCharacter().skill_points }}
+          </p>
 
-        <h3 class="mt-4 font-semibold">Past Campaigns</h3>
-        @if (selectedCharacter().past_campaigns.length > 0) {
-        <ul>
-          @for (camp of selectedCharacter().past_campaigns; track camp.id) {
-          <li>{{ camp.campaign_name }} ({{ camp.mode }})</li>
-          }
-        </ul>
-        } @else {
-        <p>No past campaigns.</p>
-        }
+          <div class="mt-4">
+            <h3 class="text-lg font-semibold border-b border-gray-500 pb-1">Current Campaign</h3>
+            @if (selectedCharacter().current_campaign) {
+            <p class="mt-1">
+              {{ selectedCharacter().current_campaign.campaign_name }}
+              <span class="italic">(Mode: {{ selectedCharacter().current_campaign.mode }})</span>
+            </p>
+            } @else {
+            <p class="mt-1 italic text-gray-300">No active campaign.</p>
+            }
+          </div>
+
+          <div class="mt-4">
+            <h3 class="text-lg font-semibold border-b border-gray-500 pb-1">Past Campaigns</h3>
+            @if (selectedCharacter().past_campaigns.length > 0) {
+            <ul class="list-disc list-inside mt-1 space-y-1">
+              @for (camp of selectedCharacter().past_campaigns; track camp.id) {
+              <li>
+                {{ camp.campaign_name }} <span class="italic">({{ camp.mode }})</span>
+              </li>
+              }
+            </ul>
+            } @else {
+            <p class="mt-1 italic text-gray-300">No past campaigns.</p>
+            }
+          </div>
+        </div>
+
+        <!-- Right column: Attributes -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-semibold border-b border-gray-500 pb-1">Attributes</h3>
+          <div class="grid grid-cols-2 gap-y-2">
+            <p>
+              <span class="font-semibold">Strength:</span>
+              {{ selectedCharacter().attributes?.strength }}
+            </p>
+            <p>
+              <span class="font-semibold">Dexterity:</span>
+              {{ selectedCharacter().attributes?.dexterity }}
+            </p>
+            <p>
+              <span class="font-semibold">Intelligence:</span>
+              {{ selectedCharacter().attributes?.intelligence }}
+            </p>
+            <p>
+              <span class="font-semibold">Charisma:</span>
+              {{ selectedCharacter().attributes?.charisma }}
+            </p>
+          </div>
+        </div>
       </div>
     </section>
     }

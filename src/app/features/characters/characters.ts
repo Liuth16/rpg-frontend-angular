@@ -102,7 +102,7 @@ export class Characters {
         this.#messageService.add({
           severity: 'success',
           summary: 'Campaign Created',
-          detail: `${result.name} started successfully`,
+          detail: `Campaign created successfully`,
           life: 2000,
         });
       }

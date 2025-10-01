@@ -71,6 +71,7 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
+  max-height: 70vh;
 }
 
 .right-panel {
@@ -158,7 +159,6 @@
   .chat-input {
     position: sticky; /* stays visible when scrolling */
     bottom: 0;
-    background: rgba(0, 0, 0, 0.4); /* keep contrast */
     padding: 0.5rem;
     z-index: 10;
   }
