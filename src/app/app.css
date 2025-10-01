@@ -1,0 +1,18 @@
+/* src/app/app.css */
+:host {
+  display: flex;
+  flex-direction: column; /* Stack header on top of content */
+  height: 100vh;
+  height: 100dvh; /* Better for mobile browsers */
+}
+
+app-header {
+  flex-shrink: 0; /* Prevents the header from shrinking */
+}
+
+/* This targets the main content area where your pages are rendered */
+router-outlet {
+  display: block; /* Make the outlet a block-level element */
+  flex-grow: 1; /* Allow the content to grow and fill remaining space */
+  overflow-y: auto; /* Add scroll only to the content area if needed */
+}
