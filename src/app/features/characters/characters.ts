@@ -5,7 +5,7 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { CreateCharacter } from './components/create-character/create-character';
+import { CreateCharacter } from '../components/create-character/create-character';
 import { Router } from '@angular/router';
 import { CreateCampaign } from '../components/create-campaign/create-campaign';
 import { ToastModule } from 'primeng/toast';
@@ -115,7 +115,6 @@ export class Characters {
     });
   }
 
-  // 🔥 Confirm + delete flow for characters
   confirmDeleteCharacter(charId: string) {
     this.#confirmationService.confirm({
       message: 'Are you sure you want to delete this character?',

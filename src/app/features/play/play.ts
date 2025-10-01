@@ -13,7 +13,6 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DataService } from '../services/data.service';
-import { Skeleton } from 'primeng/skeleton';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
@@ -21,15 +20,7 @@ import { ConfirmDialog } from 'primeng/confirmdialog';
 @Component({
   selector: 'app-play',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    CardModule,
-    ButtonModule,
-    InputTextModule,
-    Skeleton,
-    ConfirmDialog,
-  ],
+  imports: [CommonModule, FormsModule, CardModule, ButtonModule, InputTextModule, ConfirmDialog],
   templateUrl: './play.html',
   styleUrl: './play.css',
 })
@@ -93,10 +84,8 @@ export class Play implements OnInit, AfterViewChecked {
     this.#data.endCampaign(campaignId).subscribe({
       next: () => {
         console.log(`Campaign ${campaignId} ended.`);
-        // Remove it from the list
         this.campaigns.set(this.campaigns().filter((c) => c.id !== campaignId));
 
-        // Clear selected if it was the one ended
         if (this.selectedCampaign()?.id === campaignId) {
           this.selectedCampaign.set(null);
           this.history.set(null);

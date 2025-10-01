@@ -48,10 +48,10 @@ export class DataService {
   }
 
   createCampaign(payload: {
-    character_id: string; // 24-char id
+    character_id: string;
     name: string;
     description: string;
-    mode?: 'free' | 'standard'; // optional; we'll pass 'free'
+    mode?: 'free' | 'standard';
   }) {
     return this.#http.post(`${this.apiUrl}/campanha`, null, { params: payload });
   }
@@ -74,10 +74,10 @@ export class DataService {
     return this.#http.get<any[]>(`${this.apiUrl}/personagem`).pipe(
       map((characters) =>
         characters
-          .filter((c) => c.current_campaign) // only characters with active campaign
+          .filter((c) => c.current_campaign)
           .map((c) => ({
             ...c.current_campaign,
-            character: { id: c.id, name: c.name }, // keep reference to owner
+            character: { id: c.id, name: c.name },
           }))
       )
     );
@@ -89,7 +89,7 @@ export class DataService {
         characters.flatMap((c) =>
           (c.past_campaigns || []).map((camp: any) => ({
             ...camp,
-            character: { id: c.id, name: c.name }, // keep reference to owner
+            character: { id: c.id, name: c.name },
           }))
         )
       )

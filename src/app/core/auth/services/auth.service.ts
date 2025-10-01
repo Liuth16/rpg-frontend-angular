@@ -10,7 +10,6 @@ export class AuthService {
   #http = inject(HttpClient);
   #router = inject(Router);
 
-  // signals for reactive state
   token = signal<string | null>(localStorage.getItem('token'));
   isLoggedIn = computed(() => !!this.token());
 

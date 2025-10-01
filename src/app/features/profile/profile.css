@@ -1,6 +1,5 @@
 :host {
   display: block;
-  /* Layer gradients over the large background image */
   background: linear-gradient(
       180deg,
       rgba(47, 37, 36, 0.66) 0%,

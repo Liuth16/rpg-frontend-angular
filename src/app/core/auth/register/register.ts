@@ -15,7 +15,6 @@ import {
 import { CardModule } from 'primeng/card';
 import { AuthService } from '../services/auth.service';
 
-// THIS MAY BE MOVED TO A SEPARATE FILE LATER
 export function passwordsMatchValidator(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password');
   const confirmPassword = control.get('confirmPassword');

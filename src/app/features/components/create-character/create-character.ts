@@ -5,7 +5,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { DataService } from '../../../services/data.service';
+import { DataService } from '../../services/data.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -48,7 +48,6 @@ export class CreateCharacter {
   });
 
   ngOnInit() {
-    // Listen for changes on char_class
     this.charForm.get('char_class')?.valueChanges.subscribe((cls) => {
       if (cls && this.baseStats[cls]) {
         const stats = this.baseStats[cls];
@@ -60,9 +59,8 @@ export class CreateCharacter {
   submit() {
     if (this.charForm.invalid) return;
 
-    // Re-enable disabled controls before sending
     const payload = {
-      ...this.charForm.getRawValue(), // includes disabled values
+      ...this.charForm.getRawValue(),
     };
 
     this.#data.createCharacter(payload).subscribe({

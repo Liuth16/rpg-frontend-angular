@@ -28,7 +28,6 @@ export class CreateCampaign {
   #fb = inject(FormBuilder);
   #data = inject(DataService);
 
-  // ✅ characterId passed from Characters component
   charId = this.#config.data?.charId;
 
   campaignForm = this.#fb.group({
@@ -44,14 +43,14 @@ export class CreateCampaign {
     this.#data
       .createCampaign({
         character_id: this.charId,
-        name: campaign_name!, // ✅ match API field
+        name: campaign_name!,
         description: description!,
-        mode: 'free', // enforce free mode
+        mode: 'free',
       })
       .subscribe({
         next: (res) => {
           console.log('Campaign created:', res);
-          this.#ref.close(res); // ✅ consistently use #ref
+          this.#ref.close(res);
         },
         error: (err) => {
           console.error('Failed to create campaign:', err);
