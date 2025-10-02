@@ -106,8 +106,17 @@
               {{ selectedCharacter().current_campaign.campaign_name }}
               <span class="italic">(Mode: {{ selectedCharacter().current_campaign.mode }})</span>
             </p>
+            <button
+              pButton
+              type="button"
+              label="End Campaign"
+              class="cursor-pointer blz-button"
+              (click)="
+                confirmEndCampaign(selectedCharacter().current_campaign.id, selectedCharacter().id)
+              "
+            ></button>
             } @else {
-            <p class="mt-1 italic text-gray-300">No active campaign.</p>
+            <p class="mt-1 italic">No active campaign.</p>
             }
           </div>
 

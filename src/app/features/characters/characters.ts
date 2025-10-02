@@ -154,4 +154,40 @@ export class Characters {
       },
     });
   }
+
+  confirmEndCampaign(campaignId: string, charId: string) {
+    this.#confirmationService.confirm({
+      message: 'Are you sure you want to end this campaign?',
+      header: 'Confirm End Campaign',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Yes',
+      rejectLabel: 'No',
+      accept: () => this.endCampaign(campaignId, charId),
+    });
+  }
+
+  private endCampaign(campaignId: string, charId: string) {
+    this.#data.endCampaign(campaignId).subscribe({
+      next: () => {
+        this.#messageService.add({
+          severity: 'success',
+          summary: 'Campaign Ended',
+          detail: 'The campaign was ended successfully.',
+          life: 2000,
+        });
+        // ✅ Refresh both list + details
+        this.refreshCharacters();
+        this.viewCharacter(charId);
+      },
+      error: (err) => {
+        console.error('Failed to end campaign:', err);
+        this.#messageService.add({
+          severity: 'error',
+          summary: 'Failed to End Campaign',
+          detail: 'Could not end the campaign.',
+          life: 3000,
+        });
+      },
+    });
+  }
 }
