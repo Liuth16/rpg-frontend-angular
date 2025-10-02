@@ -1,7 +1,8 @@
 @import 'tailwindcss';
 
 :root {
-  --p-button-text-secondary-color: #ffcc00;
+  --p-button-text-secondary-color: #fff;
+  --p-button-text-secondary-hover-background: #f5edd6;
   --background-details-image: url('./assets/background-details.png');
   --background-image: url('./assets/background-image.avif');
   --buttontroll-background-image: url('./assets/button-texture.gif');
