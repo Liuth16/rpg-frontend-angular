@@ -24,6 +24,30 @@ body {
   font-family: 'customfont', sans-serif;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(
+      180deg,
+      rgba(47, 37, 36, 0.66) 0%,
+      rgba(92, 67, 64, 0.5) 51.5%,
+      rgba(128, 90, 85, 0.42) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(66, 50, 48, 0.42) 0%,
+      rgba(66, 50, 48, 0) 33%,
+      rgba(66, 50, 48, 0) 66%,
+      rgba(66, 50, 48, 0.42) 100%
+    ),
+    radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%),
+    var(--background-image) center / cover no-repeat;
+  background-blend-mode: overlay, multiply, normal, normal;
+  background-attachment: fixed;
+}
+
 p-avatar.mage {
   background-image: var(--mage-avatar);
   background-size: cover;
