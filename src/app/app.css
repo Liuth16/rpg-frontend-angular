@@ -7,7 +7,9 @@
 }
 
 app-header {
-  flex-shrink: 0; /* Prevents the header from shrinking */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 /* This targets the main content area where your pages are rendered */

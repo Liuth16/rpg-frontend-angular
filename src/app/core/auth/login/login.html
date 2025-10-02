@@ -1,44 +1,89 @@
 <p-toast />
-<div class="card flex justify-center items-center h-screen login-background">
-  <p-card header="Login" class="details-background">
-    <form
-      [formGroup]="loginForm"
-      (ngSubmit)="onSubmit()"
-      class="flex flex-col gap-4 w-full sm:w-56"
-    >
-      <div class="flex flex-col gap-1">
-        <input
-          pInputText
-          type="email"
-          id="email"
-          placeholder="Email"
-          formControlName="email"
-          [invalid]="isInvalid('email')"
+<div class="login-container">
+  <div class="login-content">
+    <!-- Decorative top element -->
+    <div class="login-emblem">
+      <svg
+        width="80"
+        height="80"
+        viewBox="0 0 80 80"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M40 5L45 25H55L47 33L50 45L40 38L30 45L33 33L25 25H35L40 5Z"
+          fill="#8b5a2b"
+          stroke="#4a3520"
+          stroke-width="2"
         />
-        @if (isInvalid('email')) { @if (loginForm.get('email')?.errors?.['required']) {
-        <p-message severity="error" size="small" variant="simple">Email é obrigatório.</p-message>
-        } @if (loginForm.get('email')?.errors?.['email']) {
-        <p-message severity="error" size="small" variant="simple"
-          >Por favor, insira um email válido.</p-message
-        >
-        } }
+        <circle cx="40" cy="50" r="12" fill="none" stroke="#8b5a2b" stroke-width="2" />
+        <path d="M40 38V62M28 50H52" stroke="#4a3520" stroke-width="2" />
+      </svg>
+    </div>
+
+    <!-- Title -->
+    <div class="login-title">
+      <h1>Bem-vindo, Aventureiro</h1>
+      <p class="login-subtitle">Entre para continuar sua jornada</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-card">
+      <div class="card-corners">
+        <span class="corner top-left"></span>
+        <span class="corner top-right"></span>
+        <span class="corner bottom-left"></span>
+        <span class="corner bottom-right"></span>
       </div>
-      <div class="flex flex-col gap-1">
-        <input
-          pInputText
-          type="password"
-          id="password"
-          placeholder="Senha"
-          formControlName="password"
-          [invalid]="isInvalid('password')"
-        />
-        @if (isInvalid('password')) {
-        <p-message severity="error" size="small" variant="simple">A senha é obrigatória.</p-message>
-        }
-      </div>
-      <button pButton severity="secondary" type="submit" class="blz-button text-white">
-        <span pButtonLabel>Login</span>
-      </button>
-    </form>
-  </p-card>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input
+            pInputText
+            type="email"
+            id="email"
+            placeholder="seu@email.com"
+            formControlName="email"
+            [invalid]="isInvalid('email')"
+            class="form-input"
+          />
+          @if (isInvalid('email')) { @if (loginForm.get('email')?.errors?.['required']) {
+          <p-message severity="error" size="small" variant="simple">Email é obrigatório.</p-message>
+          } @if (loginForm.get('email')?.errors?.['email']) {
+          <p-message severity="error" size="small" variant="simple"
+            >Por favor, insira um email válido.</p-message
+          >
+          } }
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Senha</label>
+          <input
+            pInputText
+            type="password"
+            id="password"
+            placeholder="••••••••"
+            formControlName="password"
+            [invalid]="isInvalid('password')"
+            class="form-input"
+          />
+          @if (isInvalid('password')) {
+          <p-message severity="error" size="small" variant="simple"
+            >A senha é obrigatória.</p-message
+          >
+          }
+        </div>
+
+        <button pButton type="submit" class="login-button">
+          <span pButtonLabel>Entrar</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Footer text -->
+    <div class="login-footer">
+      <p>Ainda não possui uma conta? <a href="/register" class="register-link">Criar conta</a></p>
+    </div>
+  </div>
 </div>

@@ -1,13 +1,38 @@
 <main class="home-hero">
+  <!-- Animated particles/embers effect -->
+  <div class="particles-container">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
   <div class="hero-content">
-    <div class="logo"></div>
-    <h1 class="hero-text">Embarque em aventuras épicas no seu próprio RPG</h1>
-    <button
-      pButton
-      type="button"
-      label="Jogar"
-      class="blz-button hero-button"
-      (click)="goToPlay()"
-    ></button>
+    <!-- Logo with glow effect -->
+    <div class="logo-container">
+      <div class="logo-glow"></div>
+      <div class="logo"></div>
+    </div>
+
+    <!-- Tagline with ornamental dividers -->
+    <div class="tagline-section">
+      <div class="ornament-divider left"></div>
+      <h1 class="hero-text">Embarque em aventuras épicas no seu próprio RPG</h1>
+      <div class="ornament-divider right"></div>
+    </div>
+
+    <!-- Call to action button -->
+    <button pButton type="button" class="hero-button" (click)="goToPlay()">
+      <span class="button-icon">⚔️</span>
+      <span class="button-text">Jogar</span>
+      <span class="button-shine"></span>
+    </button>
+
+    <!-- Additional flavor text -->
+    <p class="subtitle-text">Crie personagens lendários e explore masmorras perigosas</p>
   </div>
 </main>

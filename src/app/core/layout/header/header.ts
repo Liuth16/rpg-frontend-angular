@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, signal, computed, inject } from '@a
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../auth/services/auth.service';
+import { DataService } from '../../../features/services/data.service';
 
 @Component({
   selector: 'app-header',
@@ -13,50 +14,35 @@ import { AuthService } from '../../auth/services/auth.service';
 })
 export class Header {
   #auth = inject(AuthService);
+  #data = inject(DataService);
+
+  user = signal<any | null>(null);
+
+  ngOnInit() {
+    if (this.#auth.isLoggedIn()) {
+      this.#data.getMe().subscribe({
+        next: (res) => this.user.set(res),
+        error: () => this.user.set(null),
+      });
+    }
+  }
 
   items = computed<MenuItem[]>(() => {
     if (this.#auth.isLoggedIn()) {
       return [
-        {
-          label: 'Home',
-          routerLink: '/',
-        },
-        {
-          label: 'Jogar',
-          routerLink: '/play',
-        },
-        {
-          label: 'Perfil',
-          routerLink: '/profile',
-        },
-        {
-          label: 'Personagens',
-          routerLink: '/characters',
-        },
-        {
-          label: 'Histórico',
-          routerLink: '/history',
-        },
-        {
-          label: 'Logout',
-          command: () => this.#auth.logout(),
-        },
+        { label: 'Personagens', routerLink: '/characters' },
+        { label: 'Histórico', routerLink: '/history' },
       ];
     } else {
       return [
-        {
-          label: 'Home',
-          routerLink: '/',
-        },
-        {
-          label: 'Login',
-          routerLink: '/login',
-        },
-        {
-          label: 'Registrar',
-          routerLink: '/register',
-        },
+        { label: 'Home', routerLink: '/' },
+        { label: 'Login', routerLink: '/login' },
+        { label: 'Registrar', routerLink: '/register' },
       ];
     }
   });
+
+  logout() {
+    this.#auth.logout();
+  }
 }

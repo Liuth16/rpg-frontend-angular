@@ -1,3 +1,12 @@
 <div class="nav">
-  <p-menubar [model]="items()" class="blz-nav"> </p-menubar>
+  <p-menubar [model]="items()" class="blz-nav">
+    <ng-template pTemplate="end">
+      @if (user()) {
+      <ul class="flex gap-4 blz-nav">
+        <li>{{ user().email }}</li>
+        <li class="cursor-pointer" (click)="logout()">Logout</li>
+      </ul>
+      }
+    </ng-template>
+  </p-menubar>
 </div>

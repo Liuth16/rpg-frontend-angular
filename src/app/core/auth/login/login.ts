@@ -50,7 +50,7 @@ export class Login {
             life: 1000,
           });
 
-          setTimeout(() => this.#router.navigate(['/profile']), 1000);
+          setTimeout(() => this.#router.navigate(['/characters']), 1000);
         },
         error: (err) => {
           this.#messageService.add({

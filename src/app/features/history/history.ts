@@ -70,8 +70,10 @@ export class History implements OnInit, AfterViewChecked {
         this.#data.deleteCampaignHistory(campaignId).subscribe({
           next: () => {
             this.campaigns.update((prev) => prev.filter((c) => c.id !== campaignId));
-            if (this.selectedCampaign()?.campaign_id === campaignId) {
+
+            if (this.selectedCampaign()?.id === campaignId) {
               this.selectedCampaign.set(null);
+              this.history.set(null);
             }
           },
           error: (err) => console.error('Failed to delete campaign history:', err),

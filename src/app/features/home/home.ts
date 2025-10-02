@@ -14,6 +14,6 @@ export class Home {
   #router = inject(Router);
 
   goToPlay() {
-    this.#router.navigate(['/play']);
+    this.#router.navigate(['/characters']);
   }
 }

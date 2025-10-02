@@ -54,13 +54,13 @@
     <header class="panel-header">
       <div class="header-content">
         <div>
-          <h2 class="panel-title">{{ selectedCampaign().campaign_name }}</h2>
+          <h2 class="panel-title">{{ selectedCampaign().name }}</h2>
           @if (selectedCampaign().character?.name) {
           <p class="campaign-subtitle">
-            {{ selectedCampaign().character.name }} • {{ selectedCampaign().mode }}
+            {{ selectedCampaign().character.name }} • Modo: {{ selectedCampaign().mode }}
           </p>
           } @else {
-          <p class="campaign-subtitle">{{ selectedCampaign().mode }}</p>
+          <p class="campaign-subtitle">Modo: {{ selectedCampaign().mode }}</p>
           }
         </div>
       </div>
