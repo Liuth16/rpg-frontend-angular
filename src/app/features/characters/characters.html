@@ -2,11 +2,11 @@
   <!-- Characters List -->
   <section class="characters-list character-select-background">
     <header class="panel-header">
-      <h2 class="text-lg font-bold mb-4">Your Characters</h2>
+      <h2 class="text-lg font-bold mb-4">Seus personagens</h2>
       <button
         pButton
         type="button"
-        label="Create Character"
+        label="Criar Personagem"
         icon="pi pi-plus"
         class="blz-button"
         (click)="openCreateDialog()"
@@ -28,15 +28,15 @@
             <div class="text-xl font-semibold">{{ char.name }}</div>
           </div>
         </ng-template>
-        <p><strong>Race:</strong> {{ char.race }}</p>
-        <p><strong>Class:</strong> {{ char.char_class }}</p>
-        <p><strong>Level:</strong> {{ char.level }}</p>
+        <p><strong>Raça:</strong> {{ char.race }}</p>
+        <p><strong>Classe:</strong> {{ char.char_class }}</p>
+        <p><strong>Nível:</strong> {{ char.level }}</p>
         <ng-template pTemplate="footer">
           <div class="flex justify-center align-center gap-2">
             <button
               pButton
               type="button"
-              label="Details"
+              label="Detalhes"
               class="cursor-pointer w-32 blz-button"
               (click)="viewCharacter(char.id)"
             ></button>
@@ -44,7 +44,7 @@
             <button
               pButton
               type="button"
-              label="Play"
+              label="Jogar"
               class="cursor-pointer w-24 blz-button"
               (click)="goToPlay(char.current_campaign.id)"
             ></button>
@@ -52,7 +52,7 @@
             <button
               pButton
               type="button"
-              label="Create Campaign"
+              label="Criar Campanha"
               icon="pi pi-plus"
               class="cursor-pointer w-40 blz-button"
               (click)="openCreateCampaignDialog(char.id)"
@@ -70,11 +70,11 @@
     @if (selectedCharacter()) {
     <section class="character-details details-background">
       <header class="panel-header flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold">Character Details</h2>
+        <h2 class="text-xl font-bold">Detalhes do Personagem</h2>
         <button
           pButton
           type="button"
-          label="Delete Character"
+          label="Excluir Personagem"
           class="cursor-pointer blz-button"
           (click)="confirmDeleteCharacter(selectedCharacter().id)"
         ></button>
@@ -84,44 +84,43 @@
       <div class="panel-content p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Left column: General Info -->
         <div class="space-y-3">
-          <h3 class="text-lg font-semibold border-b border-gray-500 pb-1">General Info</h3>
-          <p><span class="font-semibold">Race:</span> {{ selectedCharacter().race }}</p>
-          <p><span class="font-semibold">Class:</span> {{ selectedCharacter().char_class }}</p>
+          <h3 class="text-lg font-semibold border-b border-gray-500 pb-1">Informações Gerais</h3>
+          <p><span class="font-semibold">Raça:</span> {{ selectedCharacter().race }}</p>
+          <p><span class="font-semibold">Classe:</span> {{ selectedCharacter().char_class }}</p>
+          <p><span class="font-semibold">Descrição:</span> {{ selectedCharacter().description }}</p>
+          <p><span class="font-semibold">Nivel:</span> {{ selectedCharacter().level }}</p>
           <p>
-            <span class="font-semibold">Description:</span> {{ selectedCharacter().description }}
-          </p>
-          <p><span class="font-semibold">Level:</span> {{ selectedCharacter().level }}</p>
-          <p>
-            <span class="font-semibold">Health:</span>
+            <span class="font-semibold">Vida:</span>
             {{ selectedCharacter().current_health }} / {{ selectedCharacter().max_health }}
           </p>
           <p>
-            <span class="font-semibold">Skill Points:</span> {{ selectedCharacter().skill_points }}
+            <span class="font-semibold">Pontos de Habilidade:</span>
+            {{ selectedCharacter().skill_points }}
           </p>
 
           <div class="mt-4">
-            <h3 class="text-lg font-semibold border-b border-gray-500 pb-1">Current Campaign</h3>
+            <h3 class="text-lg font-semibold border-b border-gray-500 pb-1">Campanha Atual</h3>
             @if (selectedCharacter().current_campaign) {
             <p class="mt-1">
               {{ selectedCharacter().current_campaign.campaign_name }}
-              <span class="italic">(Mode: {{ selectedCharacter().current_campaign.mode }})</span>
+              <span class="italic">(Modo: {{ selectedCharacter().current_campaign.mode }})</span>
             </p>
             <button
               pButton
               type="button"
-              label="End Campaign"
+              label="Encerrar Campanha"
               class="cursor-pointer blz-button"
               (click)="
                 confirmEndCampaign(selectedCharacter().current_campaign.id, selectedCharacter().id)
               "
             ></button>
             } @else {
-            <p class="mt-1 italic">No active campaign.</p>
+            <p class="mt-1 italic">Sem campanhas ativas.</p>
             }
           </div>
 
           <div class="mt-4">
-            <h3 class="text-lg font-semibold border-b border-gray-500 pb-1">Past Campaigns</h3>
+            <h3 class="text-lg font-semibold border-b border-gray-500 pb-1">Campanhas passadas</h3>
             @if (selectedCharacter().past_campaigns.length > 0) {
             <ul class="list-disc list-inside mt-1 space-y-1">
               @for (camp of selectedCharacter().past_campaigns; track camp.id) {
@@ -131,29 +130,29 @@
               }
             </ul>
             } @else {
-            <p class="mt-1 italic text-gray-300">No past campaigns.</p>
+            <p class="mt-1 italic text-gray-300">Sem campanhas passadas.</p>
             }
           </div>
         </div>
 
         <!-- Right column: Attributes -->
         <div class="space-y-3">
-          <h3 class="text-lg font-semibold border-b border-gray-500 pb-1">Attributes</h3>
+          <h3 class="text-lg font-semibold border-b border-gray-500 pb-1">Atributos</h3>
           <div class="grid grid-cols-2 gap-y-2">
             <p>
-              <span class="font-semibold">Strength:</span>
+              <span class="font-semibold">Força:</span>
               {{ selectedCharacter().attributes?.strength }}
             </p>
             <p>
-              <span class="font-semibold">Dexterity:</span>
+              <span class="font-semibold">Destreza:</span>
               {{ selectedCharacter().attributes?.dexterity }}
             </p>
             <p>
-              <span class="font-semibold">Intelligence:</span>
+              <span class="font-semibold">Inteligencia:</span>
               {{ selectedCharacter().attributes?.intelligence }}
             </p>
             <p>
-              <span class="font-semibold">Charisma:</span>
+              <span class="font-semibold">Carisma:</span>
               {{ selectedCharacter().attributes?.charisma }}
             </p>
           </div>

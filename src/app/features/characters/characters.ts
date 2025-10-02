@@ -73,8 +73,8 @@ export class Characters {
         this.refreshCharacters();
         this.#messageService.add({
           severity: 'success',
-          summary: 'Character Created',
-          detail: `${result.name} was created successfully`,
+          summary: 'Personagem Criado',
+          detail: `${result.name} foi criado com sucesso`,
           life: 2000,
         });
       }
@@ -101,8 +101,8 @@ export class Characters {
         this.viewCharacter(charId);
         this.#messageService.add({
           severity: 'success',
-          summary: 'Campaign Created',
-          detail: `Campaign created successfully`,
+          summary: 'Campanha Criada',
+          detail: `Campanha criada com sucesso`,
           life: 2000,
         });
       }
@@ -117,11 +117,11 @@ export class Characters {
 
   confirmDeleteCharacter(charId: string) {
     this.#confirmationService.confirm({
-      message: 'Are you sure you want to delete this character?',
-      header: 'Confirm Delete Character',
+      message: 'Tem certeza que deseja deletar este personagem?',
+      header: 'Confirmar Deletar Personagem',
       icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Yes',
-      rejectLabel: 'No',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
       accept: () => this.deleteCharacter(charId),
     });
   }
@@ -138,8 +138,8 @@ export class Characters {
 
         this.#messageService.add({
           severity: 'success',
-          summary: 'Character Deleted',
-          detail: 'Character removed successfully.',
+          summary: 'Personagem excluído',
+          detail: 'Personagem removido com sucesso.',
           life: 2000,
         });
       },
@@ -157,11 +157,11 @@ export class Characters {
 
   confirmEndCampaign(campaignId: string, charId: string) {
     this.#confirmationService.confirm({
-      message: 'Are you sure you want to end this campaign?',
-      header: 'Confirm End Campaign',
+      message: 'Tem certeza que deseja encerrar esta campanha?',
+      header: 'Confirmar Encerrar Campanha',
       icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Yes',
-      rejectLabel: 'No',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
       accept: () => this.endCampaign(campaignId, charId),
     });
   }
@@ -171,8 +171,8 @@ export class Characters {
       next: () => {
         this.#messageService.add({
           severity: 'success',
-          summary: 'Campaign Ended',
-          detail: 'The campaign was ended successfully.',
+          summary: 'Campanha Encerrada',
+          detail: 'Campanha encerrada com sucesso.',
           life: 2000,
         });
         // ✅ Refresh both list + details

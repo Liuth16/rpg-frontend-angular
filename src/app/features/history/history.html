@@ -2,11 +2,11 @@
   <!-- Left side: Past Campaigns -->
   <section class="left-panel details-background">
     <header class="panel-header">
-      <h2 class="text-lg font-bold p-2">Past Campaigns</h2>
+      <h2 class="text-lg font-bold p-2">Campanhas Passadas</h2>
     </header>
     <div class="panel-content overflow-y-auto p-4">
       @if (campaigns().length === 0) {
-      <p>No past campaigns found.</p>
+      <p>Sem campanhas passadas.</p>
       } @for (camp of campaigns(); track camp.id) {
       <p-card class="character-card mb-4">
         <ng-template pTemplate="header">
@@ -14,21 +14,21 @@
             <div class="text-xl font-semibold">{{ camp.campaign_name }}</div>
           </div>
         </ng-template>
-        <p><strong>Mode:</strong> {{ camp.mode }}</p>
-        <p><strong>Character:</strong> {{ camp.character.name }}</p>
+        <p><strong>Modo:</strong> {{ camp.mode }}</p>
+        <p><strong>Personagem:</strong> {{ camp.character.name }}</p>
         <ng-template pTemplate="footer">
           <div class="flex justify-center align-center gap-2">
             <button
               pButton
               type="button"
-              label="View"
+              label="Ver"
               class="cursor-pointer w-32 blz-button"
               (click)="selectCampaign(camp.id)"
             ></button>
             <button
               pButton
               type="button"
-              label="Delete Campaign"
+              label="Excluir Campanha"
               class="cursor-pointer blz-button"
               (click)="confirmDelete(camp.id)"
             ></button>
@@ -50,8 +50,8 @@
       <div class="chat-log flex-1 overflow-y-auto p-4 flex flex-col gap-4" #chatContainer>
         @for (turn of turns(); track turn.id) {
         <div class="p-2 border-b border-gray-700">
-          <div class="text-blue-600 mb-1"><strong>You:</strong> {{ turn.user_input }}</div>
-          <div class="text-green-600 mb-1"><strong>Narrative:</strong> {{ turn.narrative }}</div>
+          <div class="text-blue-600 mb-1"><strong>Você:</strong> {{ turn.user_input }}</div>
+          <div class="text-green-600 mb-1"><strong>Narrativa:</strong> {{ turn.narrative }}</div>
 
           <!-- Effects -->
           @if (turnEffects(turn).length > 0) {

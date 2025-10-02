@@ -65,7 +65,7 @@ export class Register {
           this.#messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: 'Registered successfully',
+            detail: 'Registrado com sucesso',
             life: 3000,
           });
           this.registerForm.reset();

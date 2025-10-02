@@ -12,12 +12,14 @@
           pInputText
           type="text"
           id="username"
-          placeholder="Username"
+          placeholder="Nome de Usuário"
           formControlName="username"
           [invalid]="isInvalid('username')"
         />
         @if (isInvalid('username')) {
-        <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+        <p-message severity="error" size="small" variant="simple"
+          >Nome de usuário é obrigatório.</p-message
+        >
         }
       </div>
 
@@ -32,10 +34,10 @@
           [invalid]="isInvalid('email')"
         />
         @if (isInvalid('email')) { @if (registerForm.get('email')?.errors?.['required']) {
-        <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+        <p-message severity="error" size="small" variant="simple">Email é obrigatório.</p-message>
         } @if (registerForm.get('email')?.errors?.['email']) {
         <p-message severity="error" size="small" variant="simple"
-          >Please enter a valid email.</p-message
+          >Por favor, insira um email válido.</p-message
         >
         } }
       </div>
@@ -46,12 +48,12 @@
           pInputText
           type="password"
           id="password"
-          placeholder="Password"
+          placeholder="Senha"
           formControlName="password"
           [invalid]="isInvalid('password')"
         />
         @if (isInvalid('password')) {
-        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+        <p-message severity="error" size="small" variant="simple">A senha é obrigatória.</p-message>
         }
       </div>
 
@@ -61,23 +63,25 @@
           pInputText
           type="password"
           id="confirmPassword"
-          placeholder="Confirm Password"
+          placeholder="Confirmar Senha"
           formControlName="confirmPassword"
           [invalid]="isInvalid('confirmPassword') || (registerForm.errors?.['passwordsMismatch'] && (registerForm.get('confirmPassword')?.touched || formSubmitted()))"
         />
         @if (isInvalid('confirmPassword') &&
         registerForm.get('confirmPassword')?.errors?.['required']) {
         <p-message severity="error" size="small" variant="simple">
-          Confirming your password is required.
+          Confirmar sua senha é obrigatório.
         </p-message>
         } @if (registerForm.errors?.['passwordsMismatch'] &&
         (registerForm.get('confirmPassword')?.touched || formSubmitted())) {
-        <p-message severity="error" size="small" variant="simple">Passwords must match.</p-message>
+        <p-message severity="error" size="small" variant="simple"
+          >As senhas devem coincidir.</p-message
+        >
         }
       </div>
 
       <button pButton severity="secondary" type="submit" class="blz-button text-white">
-        <span pButtonLabel>Register</span>
+        <span pButtonLabel>Registrar</span>
       </button>
     </form>
   </p-card>

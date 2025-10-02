@@ -1,39 +1,39 @@
 <div class="create-wrapper">
-  <p-card header="Create New Campaign" class="details-background create-card">
+  <p-card header="Criar nova campanha" class="details-background create-card">
     <form [formGroup]="campaignForm" (ngSubmit)="submit()" class="flex flex-col gap-4">
       <!-- Name -->
       <div class="flex flex-col gap-2">
-        <label for="name" class="font-semibold">Campaign Name</label>
+        <label for="name" class="font-semibold">Nome da Campanha</label>
         <input
           id="name"
           pInputText
           formControlName="campaign_name"
-          placeholder="Enter campaign name"
+          placeholder="Digite o nome da campanha"
         />
       </div>
 
       <!-- Description -->
       <div class="flex flex-col gap-2">
-        <label for="description" class="font-semibold">Description</label>
+        <label for="description" class="font-semibold">Descrição</label>
         <textarea
           id="description"
           rows="3"
           pInputText
           formControlName="description"
-          placeholder="Short description"
+          placeholder="Descrição da campanha (ambientação, história, etc.)"
           class="w-full"
         ></textarea>
       </div>
 
       <!-- Game Mode (locked to Free) -->
       <div class="flex flex-col gap-2">
-        <label class="font-semibold">Mode</label>
-        <p class="italic text-sm text-gray-400">Only Free Mode available</p>
+        <label class="font-semibold">Modo</label>
+        <p class="italic text-sm text-gray-400">Apenas o Modo Livre está disponível</p>
       </div>
 
       <!-- Submit -->
       <div class="flex justify-end mt-6">
-        <button pButton type="submit" label="Create" class="blz-button"></button>
+        <button pButton type="submit" label="Criar" class="blz-button"></button>
       </div>
     </form>
   </p-card>

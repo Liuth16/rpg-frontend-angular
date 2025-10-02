@@ -16,10 +16,10 @@
           [invalid]="isInvalid('email')"
         />
         @if (isInvalid('email')) { @if (loginForm.get('email')?.errors?.['required']) {
-        <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+        <p-message severity="error" size="small" variant="simple">Email é obrigatório.</p-message>
         } @if (loginForm.get('email')?.errors?.['email']) {
         <p-message severity="error" size="small" variant="simple"
-          >Please enter a valid email.</p-message
+          >Por favor, insira um email válido.</p-message
         >
         } }
       </div>
@@ -28,12 +28,12 @@
           pInputText
           type="password"
           id="password"
-          placeholder="password"
+          placeholder="Senha"
           formControlName="password"
           [invalid]="isInvalid('password')"
         />
         @if (isInvalid('password')) {
-        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+        <p-message severity="error" size="small" variant="simple">A senha é obrigatória.</p-message>
         }
       </div>
       <button pButton severity="secondary" type="submit" class="blz-button text-white">

@@ -22,19 +22,19 @@ export class Header {
           routerLink: '/',
         },
         {
-          label: 'Play',
+          label: 'Jogar',
           routerLink: '/play',
         },
         {
-          label: 'Profile',
+          label: 'Perfil',
           routerLink: '/profile',
         },
         {
-          label: 'Characters',
+          label: 'Personagens',
           routerLink: '/characters',
         },
         {
-          label: 'History',
+          label: 'Histórico',
           routerLink: '/history',
         },
         {
@@ -53,7 +53,7 @@ export class Header {
           routerLink: '/login',
         },
         {
-          label: 'Register',
+          label: 'Registrar',
           routerLink: '/register',
         },
       ];

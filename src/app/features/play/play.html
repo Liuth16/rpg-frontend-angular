@@ -11,10 +11,10 @@
         @for (turn of turns(); track turn.id) {
         <div class="p-2 border-b border-gray-700">
           <div class="text-blue-600 mb-1 font-sans">
-            <strong>You:</strong> {{ turn.user_input }}
+            <strong>Você:</strong> {{ turn.user_input }}
           </div>
           <div class="text-black mb-1 font-sans">
-            <strong>Narrative:</strong> {{ turn.narrative }}
+            <strong>Narrativa:</strong> {{ turn.narrative }}
           </div>
 
           <!-- Effects -->
@@ -53,11 +53,11 @@
         <input
           pInputText
           [(ngModel)]="actionInput"
-          placeholder="Type your action..."
+          placeholder="Escreva sua ação..."
           class="flex-1"
           (keyup.enter)="sendAction()"
         />
-        <button pButton label="Send" class="blz-button" (click)="sendAction()"></button>
+        <button pButton label="Enviar" class="blz-button" (click)="sendAction()"></button>
       </div>
     </section>
     }
@@ -66,7 +66,7 @@
     @if (currentCombat()) {
     <section class="combat-panel details-background flex flex-col flex-grow">
       <header class="panel-header">
-        <h2 class="text-lg font-bold">Combat</h2>
+        <h2 class="text-lg font-bold">Combate</h2>
       </header>
 
       <!-- Duel layout -->
@@ -74,12 +74,12 @@
         <div class="flex items-center justify-between gap-6 combat-panel">
           <!-- Player card -->
           <div class="flex-1 min-w-[120px] p-4 rounded-md">
-            <h3 class="font-semibold mb-2 text-emerald-400">Player</h3>
+            <h3 class="font-semibold mb-2 text-emerald-400">Jogador</h3>
 
             <!-- Health -->
             <div class="text-sm">
               <div class="flex items-center justify-between">
-                <span class="font-medium">Health</span>
+                <span class="font-medium">Vida</span>
                 <span>
                   {{ currentCombat().player.health }} / {{ currentCombat().player.max_health }}
                 </span>
@@ -97,11 +97,11 @@
             <!-- Attributes -->
             <div class="grid grid-cols-4 gap-2 mt-3 text-xs">
               <div class="rounded bg-white/5 p-2 text-center">
-                <div class="font-semibold">STR</div>
+                <div class="font-semibold">FOR</div>
                 <div>{{ currentCombat().player.attributes.strength }}</div>
               </div>
               <div class="rounded bg-white/5 p-2 text-center">
-                <div class="font-semibold">DEX</div>
+                <div class="font-semibold">DES</div>
                 <div>{{ currentCombat().player.attributes.dexterity }}</div>
               </div>
               <div class="rounded bg-white/5 p-2 text-center">
@@ -109,7 +109,7 @@
                 <div>{{ currentCombat().player.attributes.intelligence }}</div>
               </div>
               <div class="rounded bg-white/5 p-2 text-center">
-                <div class="font-semibold">CHA</div>
+                <div class="font-semibold">CAR</div>
                 <div>{{ currentCombat().enemy.attributes.charisma }}</div>
               </div>
             </div>
@@ -120,12 +120,12 @@
 
           <!-- Enemy card -->
           <div class="flex-1 min-w-[120px] p-4 rounded-md">
-            <h3 class="font-semibold mb-2 text-rose-400">Enemy</h3>
+            <h3 class="font-semibold mb-2 text-rose-400">Inimigo</h3>
 
             <!-- Health -->
             <div class="text-sm">
               <div class="flex items-center justify-between">
-                <span class="font-medium">Health</span>
+                <span class="font-medium">Vida</span>
                 <span>
                   {{ currentCombat().enemy.health }} / {{ currentCombat().enemy.max_health }}
                 </span>
@@ -143,11 +143,11 @@
             <!-- Attributes -->
             <div class="grid grid-cols-4 gap-2 mt-3 text-xs">
               <div class="rounded bg-white/5 p-2 text-center">
-                <div class="font-semibold">STR</div>
+                <div class="font-semibold">FOR</div>
                 <div>{{ currentCombat().enemy.attributes.strength }}</div>
               </div>
               <div class="rounded bg-white/5 p-2 text-center">
-                <div class="font-semibold">DEX</div>
+                <div class="font-semibold">DES</div>
                 <div>{{ currentCombat().enemy.attributes.dexterity }}</div>
               </div>
               <div class="rounded bg-white/5 p-2 text-center">
@@ -155,7 +155,7 @@
                 <div>{{ currentCombat().enemy.attributes.intelligence }}</div>
               </div>
               <div class="rounded bg-white/5 p-2 text-center">
-                <div class="font-semibold">CHA</div>
+                <div class="font-semibold">CAR</div>
                 <div>{{ currentCombat().enemy.attributes.charisma }}</div>
               </div>
             </div>
@@ -165,7 +165,7 @@
         <!-- Effects as chips (optional but tidy) -->
         @if (currentCombat()?.effects?.length > 0) {
         <div class="mt-2">
-          <h4 class="font-medium mb-2">Effects</h4>
+          <h4 class="font-medium mb-2">Efeitos</h4>
           <div class="flex flex-wrap gap-2">
             @for (eff of currentCombat().effects; track $index) {
             <span class="px-2 py-1 text-xs rounded bg-white/5 border border-white/10">

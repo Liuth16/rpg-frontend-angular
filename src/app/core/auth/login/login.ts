@@ -46,7 +46,7 @@ export class Login {
           this.#messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: 'Logged in successfully',
+            detail: 'Logado com sucesso',
             life: 1000,
           });
 
