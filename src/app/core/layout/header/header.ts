@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, signal, computed, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  computed,
+  inject,
+  effect,
+} from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../auth/services/auth.service';
@@ -18,13 +25,18 @@ export class Header {
 
   user = signal<any | null>(null);
 
-  ngOnInit() {
-    if (this.#auth.isLoggedIn()) {
-      this.#data.getMe().subscribe({
-        next: (res) => this.user.set(res),
-        error: () => this.user.set(null),
-      });
-    }
+  constructor() {
+    // react whenever login state changes
+    effect(() => {
+      if (this.#auth.isLoggedIn()) {
+        this.#data.getMe().subscribe({
+          next: (res) => this.user.set(res),
+          error: () => this.user.set(null),
+        });
+      } else {
+        this.user.set(null);
+      }
+    });
   }
 
   items = computed<MenuItem[]>(() => {
@@ -44,5 +56,6 @@ export class Header {
 
   logout() {
     this.#auth.logout();
+    this.user.set(null);
   }
 }

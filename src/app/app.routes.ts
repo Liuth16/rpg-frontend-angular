@@ -9,7 +9,7 @@ import { Play } from './features/play/play';
 import { Home } from './features/home/home';
 
 export const routes: Routes = [
-  { path: '', component: Home, title: 'Home' },
+  { path: '', component: Home, title: 'Dank Dungeon - Home' },
   {
     path: 'login',
     component: Login,

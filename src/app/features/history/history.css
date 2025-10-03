@@ -322,15 +322,15 @@
 .user-message {
   color: #1e5a8e;
   margin-bottom: 0.75rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.7;
 }
 
 .narrative-message {
   color: #3a2a1a;
   margin-bottom: 0.75rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.7;
 }
 
 .user-message strong,
@@ -348,16 +348,16 @@
 
 .effect-item {
   color: #c73e1d;
-  font-size: 0.875rem;
+  font-size: 1rem;
   margin-bottom: 0.25rem;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .reward-item {
   color: #b8860b;
-  font-size: 0.875rem;
+  font-size: 1rem;
   margin-bottom: 0.25rem;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* Mobile Responsive */
