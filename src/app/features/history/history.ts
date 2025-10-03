@@ -59,11 +59,12 @@ export class History implements OnInit, AfterViewChecked {
 
   confirmDelete(campaignId: string) {
     this.#confirmationService.confirm({
-      header: 'Confirm Deletion',
-      message: 'Are you sure you want to delete this campaign history? This cannot be undone.',
+      header: 'Confirmar Exclusão',
+      message:
+        'Tem certeza de que deseja excluir este histórico de campanha? Esta ação não pode ser desfeita.',
       icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Yes, delete',
-      rejectLabel: 'Cancel',
+      acceptLabel: 'Sim, excluir',
+      rejectLabel: 'Cancelar',
       acceptButtonStyleClass: 'blz-button',
       rejectButtonStyleClass: 'blz-button',
       accept: () => {
